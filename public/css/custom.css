@@ -11,3 +11,15 @@
 .row .regLeft h1 {
 	display: none;
 }
+
+.leftpanel {
+	background-color: #808080 !important;
+}
+
+.leftpanel .leftmenu .nav {
+	background-color: #808080;
+}
+
+.leftmenu .nav-tabs.nav-stacked .dropdown ul li a {
+	background-color: #404040;
+}
