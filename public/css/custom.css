@@ -1,0 +1,13 @@
+.header .logo a {
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
+	background-position: center!important;
+}
+
+.row .regLeft::after {
+	display: none;
+}
+
+.row .regLeft h1 {
+	display: none;
+}
