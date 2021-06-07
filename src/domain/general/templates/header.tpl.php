@@ -12,3 +12,5 @@
 
 <link rel="shortcut icon" href="<?=BASE_URL?>/favicon.ico"/>
 <link rel="apple-touch-icon" href="<?=BASE_URL?>/apple-touch-icon.png">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
