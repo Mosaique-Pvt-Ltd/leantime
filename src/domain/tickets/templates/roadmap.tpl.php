@@ -42,6 +42,8 @@ if(isset($_SESSION['userdata']['settings']['views']['roadmap'])){
                                 $currentView = $this->__("buttons.week");
                             }elseif($roadmapView == 'Month') {
                                 $currentView = $this->__("buttons.month");
+                            }elseif($roadmapView == 'Year') {
+                                $currentView = $this->__("buttons.year");
                             }
                         ?>
                         <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("buttons.timeframe"); ?>: <span class="viewText"><?=$currentView; ?></span><span class="caret"></span></button>
@@ -49,6 +51,7 @@ if(isset($_SESSION['userdata']['settings']['views']['roadmap'])){
                             <li><a href="javascript:void(0);" data-value="Day" class="<?php if($roadmapView == 'Day') echo "active";?>"> <?=$this->__("buttons.day"); ?></a></li>
                             <li><a href="javascript:void(0);" data-value="Week" class="<?php if($roadmapView == 'Week') echo "active";?>"><?=$this->__("buttons.week"); ?></a></li>
                             <li><a href="javascript:void(0);" data-value="Month" class="<?php if($roadmapView == 'Month') echo "active";?>"><?=$this->__("buttons.month"); ?></a></li>
+                            <li><a href="javascript:void(0);" data-value="Year" class="<?php if($roadmapView == 'Year') echo "active";?>"><?=$this->__("buttons.year"); ?></a></li>
                         </ul>
                     </div>
 
