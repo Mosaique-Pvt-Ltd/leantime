@@ -114,7 +114,11 @@ $helper = $this->get('helper');
                 foreach($this->get('allTimesheets') as $row) {
                     $sum = $sum + $row['hours'];?>
                     <tr>
-                        <td data-order="<?=$this->e($row['id']); ?>"> <a href="<?=BASE_URL?>/timesheets/editTime/<?=$row['id']?>" class="editTimeModal">#<?=$row['id']." - ".$this->__('label.edit'); ?> </a></td>
+                        <?php if($login::userIsAtLeast("clientManager")): ?>
+                            <td data-order="<?=$this->e($row['id']); ?>"> <a href="<?=BASE_URL?>/timesheets/editTime/<?=$row['id']?>" class="editTimeModal">#<?=$row['id']." - ".$this->__('label.edit'); ?> </a></td>
+                        <?php else: ?>
+                            <td data-order="<?=$this->e($row['id']); ?>"><?php echo $row['id']; ?></td>
+                        <?php endif; ?>
                         <td data-order="<?php echo $this->getFormattedDateString($row['workDate']); ?>">
                             <?php echo $this->getFormattedDateString($row['workDate']); ?>
                         </td>

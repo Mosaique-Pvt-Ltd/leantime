@@ -32,7 +32,7 @@
                 <li><a href="#subtasks"><?php echo $this->__('tabs.subtasks') ?> (<?php echo $this->get('numSubTasks'); ?>)</a></li>
                 <li><a href="#files"><?php echo $this->__("tabs.files") ?> (<?php echo $this->get('numFiles'); ?>)</a></li>
                 <li><a href="#comments"><?php echo $this->__("tabs.discussion") ?> (<?php echo $this->get('numComments'); ?>)</a></li>
-                <?php if ($_SESSION["userdata"]["role"] != "client") { ?>
+                <?php if ($login::userIsAtLeast("clientManager") && $_SESSION["userdata"]["role"] != "client") { ?>
                     <li><a href="#timesheet"><?php echo $this->__("tabs.time_tracking") ?></a></li>
                 <?php }; ?>
             </ul>
@@ -66,7 +66,7 @@
                 </form>
             </div>
 
-            <?php if ($_SESSION["userdata"]["role"] != "client") { ?>
+            <?php if ($login::userIsAtLeast("clientManager") && $_SESSION["userdata"]["role"] != "client") { ?>
                 <div id="timesheet">
                     <?php $this->displaySubmodule('tickets-timesheet') ?>
                 </div>
