@@ -40,10 +40,7 @@
 		<div class="row">
 				<div class="col-sm-12 col-md-6 regLeft" style="background:#<?php echo $_SESSION["companysettings.mainColor"]; ?>" >
 						<div class="row">
-								<div class="col-md-5">
-
-								</div>
-								<div class="col-md-6" style="position:relative;">
+								<div class="col-md-12">
 										<a href="<?=BASE_URL ?>" target="_blank"><img src="<?php echo htmlentities($_SESSION["companysettings.logoPath"]); ?>" /></a>
 								</div>
 						</div>
