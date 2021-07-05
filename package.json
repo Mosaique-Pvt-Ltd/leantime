@@ -31,7 +31,9 @@
     "grunt-exec": "^3.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+		"Build-All": "grunt Build-All",
+		"Dev-Watch": "grunt Dev-Watch"
   },
   "repository": {
     "type": "git",

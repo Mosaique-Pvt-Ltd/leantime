@@ -1,6 +1,6 @@
-<?php 
-$color = $_GET['color']; 
-$color = "#".$color; 
+<?php
+$color = $_GET['color'];
+$color = "#".$color;
 header("Content-type: text/css", true);
 ?>
 
@@ -40,7 +40,7 @@ a,a:hover,a:link,a:active,a:focus,
 .wizard .tabbedmenu li a.done,
 .tabbable > .nav-tabs > li.active > a,
 .btn-circle.btn-primary, .btn-circle.btn-primary:hover, .btn-circle.btn-primary:focus,
-.btn-circle.btn-primary:active, .btn-circle.btn-primary.active, 
+.btn-circle.btn-primary:active, .btn-circle.btn-primary.active,
 .btn-circle.btn-primary.disabled, .btn-circle.btn-primary[disabled],
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
@@ -71,11 +71,11 @@ button,
 .dropdown-menu > li > a.active
 { background-color:  <?php echo $color; ?>;  }
 
-input[type='submit']:hover, 
+input[type='submit']:hover,
 button:hover {
 	background-color:  #555;
 	color:#fff;
-} 	
+}
 
 .chzn-container-multi .chzn-choices .search-choice {
 	color:#fff;
@@ -89,7 +89,7 @@ span.btn-white:hover{
 	background:#fff;
 }
 
-	
+
 /* border color */
 
 .pageicon,
@@ -109,7 +109,7 @@ span.btn-white:hover{
 .tabbable > .tab-content,
 .nav-tabs.nav-stacked > li > a:focus,
 .btn-circle.btn-primary, .btn-circle.btn-primary:hover, .btn-circle.btn-primary:focus,
-.btn-circle.btn-primary:active, .btn-circle.btn-primary.active, 
+.btn-circle.btn-primary:active, .btn-circle.btn-primary.active,
 .btn-circle.btn-primary.disabled, .btn-circle.btn-primary[disabled],
 .nav-tabs,
 .nav-tabs > li > a:hover, .nav-tabs > li > a:focus,
@@ -150,9 +150,9 @@ div.tagsinput span.tag
 
 
 @media screen and (max-width: 480px) {
- 
+
  .userloggedinfo ul li a:hover { background-color: <?php echo $color; ?>; }
- 
+
   .userloggedinfo .userinfo,
   .wizard .hormenu li,
   .messageright { border-color: <?php echo $color; ?>; }
@@ -160,7 +160,7 @@ div.tagsinput span.tag
 }
 
 .timesheetTable {
-	
+
 }
 
 .timesheetTable input {
@@ -196,7 +196,7 @@ div.tagsinput span.tag
 }
 
 .filterBar {
-	
+
 	border:1px solid #ccc;
 	padding:10px;
 	margin-bottom:5px;
@@ -219,7 +219,7 @@ min-width:50px;
 label.inline {
 	float:left;
 	margin-right:5px;
-	padding-top:6px;	
+	padding-top:6px;
 }
 
 .loading {
@@ -243,18 +243,18 @@ font-size: 16px;
 }
 
 div.tagsinput {
-	border:1px solid #ccc;	
+	border:1px solid #ccc;
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus,
 .btn-group.open .btn-primary.dropdown-toggle,
 { background: #ccc; color:#000 }
 
-.btn-primary, .btn-primary:link { 
-	
+.btn-primary, .btn-primary:link {
+
 	border: 1px solid #ddd;
 	 }
-	 
+
 	 .tabbedwidget .btn-primary {
 	 	border:0px;
 	 }
