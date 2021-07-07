@@ -3,7 +3,6 @@
 
 <head>
 	<?php echo $frontController->includeAction('general.header'); ?>
-
 	<link rel="stylesheet" href="<?=BASE_URL ?>/css/main.css?v=<?php echo $settings->appVersion; ?>" />
 	<link rel="stylesheet" href="<?=BASE_URL ?>/css/style.default.css?v=<?php echo $settings->appVersion; ?>"
 		type="text/css" />
@@ -14,7 +13,6 @@
 		type="text/css" />
 
 	<script src="<?=BASE_URL?>/js/compiled-base-libs.min.js?v=<?php echo $settings->appVersion; ?>"></script>
-
 </head>
 
 <script type="text/javascript">
