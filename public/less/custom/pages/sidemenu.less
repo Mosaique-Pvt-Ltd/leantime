@@ -1,0 +1,56 @@
+.leftpanel {
+	background: #EDF0F7;
+
+	.nav-tabs.nav-stacked {
+		background: #EDF0F7;
+
+		> li.dropdown ul {
+				background: #EDF0F7;
+					li {
+						border: none;
+
+						a {
+							color: #292F4C;
+						}
+					}
+		}
+
+		.bigProjectSelector,
+		.project-selector {
+			border: none;
+			background-color: transparent !important;
+
+			&:focus,
+			&:hover,
+			&:active {
+				background-color: #EDF0F7 !important;
+			}
+		}
+
+		a {
+			color: #292F4C;
+		}
+
+		.dropdown {
+			padding: 0 12px;
+
+			ul {
+				li {
+					&.active {
+						a {
+							background-color: #DCE5F0;
+							color: #292F4C;
+						}
+					}
+
+					a {
+						&:hover {
+							background-color: #DCE5F0;
+							color: #292F4C;
+						}
+					}
+				}
+			}
+		}
+	}
+}
