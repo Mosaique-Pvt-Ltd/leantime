@@ -9,7 +9,6 @@
 ?>
 
 <div class="pageheader">
-    <div class="pageicon"><span class="fa fa-home"></span></div>
     <div class="pagetitle">
         <div class="row">
             <div class="col-lg-8">
@@ -72,7 +71,7 @@
                                         <input type="hidden" name="status" value="3" />
                                         <input type="hidden" name="sprint" value="<?php echo $_SESSION['currentSprint']; ?>" />
                                         <a href="javascript:void(0);" class="delete" onclick="jQuery('#ticket_new').toggle('fast'); jQuery('#ticket_new_link').toggle('fast');">
-                                            <i class="fas fa-times"></i> <?php echo $this->__("links.cancel"); ?>
+																				 <?php echo $this->__("links.cancel"); ?>
                                         </a>
                                     </form>
 
@@ -346,19 +345,18 @@
 
                 <div class="row" id="projectProgressContainer">
                     <div class="col-md-12">
-
-
-                        <h5 class="subtitle"><?=$this->__("subtitles.project_progress")?></h5>
-
+											<div id="projectProgressContainer-wrapper">
+											<h5 class="subtitle"><?=$this->__("subtitles.project_progress")?></h5>
                         <div id="canvas-holder" style="width:100%; height:250px;">
                             <canvas id="chart-area" ></canvas>
                         </div>
-                        <br /><br />
+											</div>
                     </div>
                 </div>
                 <div class="row" id="milestoneProgressContainer">
                     <div class="col-md-12">
-                        <h5 class="subtitle"><?=$this->__("headline.milestones") ?></h5>
+											<div id="milestoneProgressContainer-wrapper">
+											<h5 class="subtitle"><?=$this->__("headline.milestones") ?></h5>
                         <ul class="sortableTicketList" >
                             <?php
                             if(count($this->get('milestones')) == 0){
@@ -411,6 +409,7 @@
                             } ?>
 
                         </ul>
+											</div>
                     </div>
                 </div>
             </div>
