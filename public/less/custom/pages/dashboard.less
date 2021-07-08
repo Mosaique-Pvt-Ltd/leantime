@@ -22,14 +22,38 @@ margin-bottom: 20px;
 			}
 	}
 
-	.ticketBox {
+	#ticket_new {
 		background: transparent;
+		border: none;
+	}
+
+	.ticketBox {
 		border: 1px solid #CED0D9;
 	}
 
 	form {
+		display: flex;
+    align-items: center;
+    justify-content: center;
+
 		input {
 			margin-bottom: 0;
+		}
+
+		input[type="text"] {
+			width: 40%;
+			height: 40px;
+		}
+
+		input[type='submit'] {
+			width: 145px;
+			height: 40px;
+			margin: 0 10px
+		}
+
+		.delete {
+			color: #FF0000;
+			font-size: 13px;
 		}
 	}
 }
