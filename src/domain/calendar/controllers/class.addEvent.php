@@ -21,6 +21,7 @@ namespace leantime\domain\controllers {
         public function run()
         {
 
+            $mail = new core\mailer();
             $tpl = new core\template();
             $calendarRepo = new repositories\calendar();
 
@@ -39,6 +40,24 @@ namespace leantime\domain\controllers {
                 } else {
                     $allDay = 'false';
                 }
+
+                // To send email on checking the text box
+                if (isset($_POST['emailNotification']) === true) {
+                    
+                    $emailNotification = 'true';
+                    $mail->setSubject('Your event reminder');
+                    $mail->setMailDetails($values);
+                    // $actual_link = "".BASE_URL."/resetPassword/".$resetLink;
+                    $mail->setHtml(sprintf('Your event reminder'));
+                    $to = array($username);
+
+
+                    $mail->sendMail($to, "Leantime System");
+                        
+                } else {
+                    $emailNotification = 'false';
+                }
+                
 
                 if (isset($_POST['dateFrom']) === true && isset($_POST['timeFrom']) === true) {
                     $dateFrom = date('Y-m-d H:i:01', strtotime($_POST['dateFrom']." ".$_POST['timeFrom']));

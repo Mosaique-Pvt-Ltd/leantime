@@ -1,5 +1,4 @@
 <?php
-
 defined('RESTRICTED') or die('Restricted access');
 $values = $this->get('values');
 $helper = $this->get('helper');
@@ -49,12 +48,19 @@ $helper = $this->get('helper');
                        </div>
                 </div>
 
+                <!--Email Notification-->
+                <label for="emailNotification"><?php echo $this->__('label.email_notification') ?></label>
+                <input type="checkbox" id="emailNotification" name="emailNotification" 
+                <?php if($values['emailNotification'] === 'true') {
+                    echo 'checked="checked" ';
+                }?>/><br /><br /><br />
+
                 <label for="allDay"><?php echo $this->__('label.all_day') ?></label>
                 <input type="checkbox" id="allDay" name="allDay"
                 <?php if($values['allDay'] === 'true') {
                     echo 'checked="checked" ';
                 }?>
-                /><br />
+                /> <br />
 
                 <p class="stdformbutton">
                     <input type="submit" name="save" id="save" value="<?php echo $this->__('buttons.save') ?>" class="button" />
