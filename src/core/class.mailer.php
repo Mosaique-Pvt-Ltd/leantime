@@ -14,6 +14,7 @@ namespace leantime\core {
 
     class mailer
     {
+
         /**
          * @access public
          * @var    string
@@ -44,11 +45,6 @@ namespace leantime\core {
          */
         public $subject;
 
-        /**
-         * @access public
-         * @var  array
-         */
-        public $mailDetails;
 
         private $mailAgent;
 
@@ -64,15 +60,14 @@ namespace leantime\core {
          */
         public function __construct()
         {
-            
 
             $config = new config();
 
             $this->from = $config->email;
 
-        
             //PHPMailer
             $this->mailAgent = new PHPMailer();
+
 
             //Use SMTP or php mail().
             if($config->useSMTP === true) {
@@ -90,7 +85,6 @@ namespace leantime\core {
                 $this->mailAgent->Port = $config->smtpPort;                                    // TCP port to connect to
                 $this->mailAgent->CharSet = 'UTF-8';                    //Ensure UTF-8 is used for emails
 
-                
             }else{
 
                 $this->mailAgent->isMail();
@@ -147,19 +141,6 @@ namespace leantime\core {
         {
 
             $this->subject = $subject;
-        }
-
-        /**
-         * setMailDetails - set the eveent details
-         *
-         * @access public
-         * @param  array $mailDetails
-         * @return void
-         */
-        public function setMailDetails($mailDetails)
-        {
-
-            $this->mailDetails = $mailDetails;
 
         }
 
@@ -175,13 +156,12 @@ namespace leantime\core {
         public function sendMail(array $to, $from)
         {
 
+
             $this->mailAgent->isHTML(true);                                  // Set email format to HTML
 
             $this->mailAgent->setFrom($this->emailDomain, $from . " (Leantime)");
-            
-            $this->mailAgent->Subject = $this->subject;
 
-            $this->mailAgent->MailDetails = $this->mailDetails;
+            $this->mailAgent->Subject = $this->subject;
 
             $logoParts = parse_url($this->logo);
 
@@ -238,7 +218,8 @@ namespace leantime\core {
                 $this->mailAgent->send();
                 $this->mailAgent->clearAllRecipients();
             }
-            
+
+
         }
 
     }

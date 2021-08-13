@@ -8,6 +8,9 @@ $helper = $this->get('helper');
 
 jQuery(document).ready(function(){
 
+
+    leantime.timesheetsController.dyntableX();
+
  	var startDate;
     var endDate;
 
@@ -64,6 +67,8 @@ jQuery(document).ready(function(){
         onChangeMonthYear: function (year, month, inst) {
             selectCurrentWeek();
         },
+
+        
         isRTL: JSON.parse(leantime.i18n.__("language.isRTL")),
         dateFormat:  leantime.i18n.__("language.jsdateformat"),
         dayNames: leantime.i18n.__("language.dayNames").split(","),
@@ -237,6 +242,11 @@ jQuery(document).ready(function(){
                     </div>
                 </div>
 
+                <div class="pull-right" style="margin-right:3px;">
+                    <div id="tableButtons" style="display:inline-block"></div>
+                    <a onclick="jQuery('.headtitle').toggle();" class="btn btn-default "><?=$this->__("links.filter") ?></a>
+                </div>
+
                 <form action="<?=BASE_URL ?>/timesheets/showMy" method="post" id="timesheetList">
 
                     <div class="headtitle filterBar " style="margin:0px; background: #eee;">
@@ -253,6 +263,9 @@ jQuery(document).ready(function(){
                         </div>
 
                     </div>
+
+                    
+
                     <table cellpadding="0" width="100%" class="table table-bordered display timesheetTable" id="dyntableX">
                         <colgroup>
                               <col class="con0" >

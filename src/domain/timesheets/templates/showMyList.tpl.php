@@ -24,7 +24,6 @@ $helper = $this->get('helper');
 
 
         <form action="<?=BASE_URL ?>/timesheets/showMyList" method="post" id="form" name="form">
-
             <div class="pull-right">
                 <div class="btn-group viewDropDown">
                     <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.list_view") ?> <?=$this->__("links.view") ?></button>
@@ -44,6 +43,7 @@ $helper = $this->get('helper');
 
             <div class="headtitle filterBar " style="margin:0px; background: #eee;">
 
+        
                 <div class="filterBoxLeft">
                     <label for="dateFrom"><?php echo $this->__('label.date_from'); ?> <?php echo $this->__('label.date_to'); ?></label>
                     <input type="text" id="dateFrom" class="dateFrom"  name="dateFrom"
@@ -71,6 +71,7 @@ $helper = $this->get('helper');
                 </div>
                 <div class="clearall"></div>
             </div>
+
 
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered display" id="allTimesheetsTable">
                 <colgroup>
