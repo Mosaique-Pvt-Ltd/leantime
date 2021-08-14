@@ -83,11 +83,14 @@ $helper = $this->get('helper');
 
                         <div class="assign-container">
                             <?php foreach($this->get('availableUsers') as $row){ ?>
-
                                     <p class="half">
+                                        <?php #This hidden checkbox will ensure that the disabled one still going to be save
+                                        if($_SESSION["userdata"]['id'] == $row['id']) { ?>
+                                            <input type='checkbox' name='editorId[]' value='<?php echo $row['id'] ?>' checked="checked" style="display:none;" />
+                                        <?php } ?>
                                         <input type='checkbox' name='editorId[]' id="user-<?php echo $row['id'] ?>" value='<?php echo $row['id'] ?>'
                                             <?php if(in_array($row['id'], $project['assignedUsers'])) : ?> checked="checked"<?php
-                                            endif; ?>/>
+                                            endif; ?> <?php echo ($_SESSION["userdata"]['id'] == $row['id']) ? 'disabled="disabled"' : ''; ?> />
 
                                         <label for="user-<?php echo $row['id'] ?>"><?php printf( $this->__('text.full_name'), $this->escape($row['firstname']), $this->escape($row['lastname'])); ?></label>
                                     </p>
@@ -173,7 +176,7 @@ $helper = $this->get('helper');
 
 
     <div class="row-fluid padding-top">
-        <?php if ($project['id'] != '') : ?>
+        <?php if ($login::userIsAtLeast("admin") && $project['id'] != '') : ?>
             <div class="pull-right padding-top">
                 <a href="<?=BASE_URL?>/projects/delProject/<?php echo $project['id']?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__('buttons.delete'); ?></a>
             </div>

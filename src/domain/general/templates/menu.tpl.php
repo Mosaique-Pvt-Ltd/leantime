@@ -48,7 +48,11 @@
                         ?>
                         <?php if ($login::userIsAtLeast("clientManager")) { ?>
                             <li class='nav-header border'></li>
+
+                            <?php if ($login::userIsAtLeast("admin")) { ?>
                             <li><a href="<?=BASE_URL ?>/projects/newProject/"><?=$this->__("menu.create_project") ?></a></li>
+                            <?php } ?>
+
                             <li><a href="<?=BASE_URL ?>/projects/showAll"><?=$this->__("menu.view_all_projects") ?></a></li>
                             <li><a href="<?=BASE_URL ?>/clients/showAll"><?=$this->__("menu.view_all_clients") ?></a></li>
                         <?php } ?>

@@ -99,19 +99,21 @@ $projects = $this->get('relations');
                         <label for="phone"><?php echo $this->__('label.phone'); ?></label> <input
                             type="text" name="phone" id="phone"
                             value="<?php echo $values['phone'] ?>" /><br />
-
+                            <?php #echo '<pre>';print_r($_SESSION["userdata"]['role']); print_r($this->get('roles'));echo '</pre>'; 
+                            $userRoles = $this->get('roles');
+                            if($_SESSION["userdata"]['role'] == 'clientManager') { 
+                                $userRoles = array();
+                                $userRoles[30] = 'clientManager';
+                            } ?>
                         <label for="role"><?php echo $this->__('label.role'); ?></label>
                         <select name="role" id="role">
-
-
-                                <?php foreach($this->get('roles') as $key => $role){ ?>
-                                    <option value="<?php  echo $key; ?>"
-                                        <?php if($key == $values['role']) { ?> selected="selected" <?php
-                                        } ?>>
-                                        <?=$this->__("label.roles.".$role) ?>
-                                       </option>
-                                <?php } ?>
-
+                            <?php foreach($userRoles as $key => $role) { ?>
+                                <option value="<?php  echo $key; ?>"
+                                    <?php if($key == $values['role']) { ?> selected="selected" <?php
+                                    } ?>>
+                                    <?=$this->__("label.roles.".$role) ?>
+                                    </option>
+                            <?php } ?>
                         </select> <br />
 
                         <label for="client"><?php echo $this->__('label.client') ?></label>

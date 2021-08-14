@@ -114,9 +114,14 @@
                                     <?php } ?>
                                     </select><br />
 
+                                    <?php $userRoles = $this->get('roles');
+                                    if($_SESSION["userdata"]['role'] == 'clientManager') { 
+                                        $userRoles = array();
+                                        $userRoles[30] = 'clientManager';
+                                    } ?>
                                     <label for="role"><?php echo $this->__('label.role'); ?></label> <select
                                         name="role" id="role">
-                                        <?php foreach($this->get('roles') as $key => $role){ ?>
+                                        <?php foreach($userRoles as $key => $role){ ?>
                                                     <option value="<?php  echo $key; ?>"
                                             <?php if($key == $values['role']) { ?> selected="selected" <?php
                                             } ?>>
