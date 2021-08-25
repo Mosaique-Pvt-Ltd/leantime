@@ -74,8 +74,6 @@ namespace leantime\domain\repositories {
          */
         public function getAll()
         {
-
-
             $query = "SELECT
 					project.id,
 					project.name,
@@ -865,6 +863,64 @@ namespace leantime\domain\repositories {
 
             $stmn->closeCursor();
 
+        }
+
+
+        /**
+         * addUrl - add a URL to be saved
+         *
+         * @access public
+         * @param  array $values
+         */
+        public function addUrl($values)
+        {
+            $query = "INSERT INTO `zp_url` (
+				`userId`, `title`, `url`, `comment`
+			) VALUES (
+                :userId,
+				:title,
+				:url,
+				:comment
+			)";
+
+            $stmn = $this->db->database->prepare($query);
+
+            $stmn->bindValue('userId', $values['userId'], PDO::PARAM_STR);
+            $stmn->bindValue('title', $values['title'], PDO::PARAM_STR);
+            $stmn->bindValue('url', $values['url'], PDO::PARAM_STR);
+            $stmn->bindValue('comment', $values['comment'], PDO::PARAM_STR);
+        
+            $stuff = $stmn->execute();
+            $stmn->closeCursor();
+        }
+
+
+        /**
+         * getUrl - get one url
+         *
+         * @access public
+         * @param  $id
+         * @return array
+         */
+        public function getUrl($userId)
+        {
+
+            $sql = "SELECT
+					title,
+                    url,
+                    comment
+				FROM zp_url
+                WHERE userId= :userId";
+
+
+
+            $stmn = $this->db->database->prepare($sql);
+            $stmn->bindValue('userId', $userId, PDO::PARAM_INT);
+
+            $stmn->execute();
+            $values = $stmn->fetchAll();
+            $stmn->closeCursor();    
+            return $values;
         }
 
     }

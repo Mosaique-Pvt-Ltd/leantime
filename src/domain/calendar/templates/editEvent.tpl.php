@@ -47,6 +47,18 @@ $values = $this->get('values');
                            </div>
                     </div>
 
+                    <div class="par">
+                        <label for="emailNote"><?php echo $this->__('label.email_note') ?></label>
+                        <textarea id="emailNote" name="emailNote" rows="4" cols="50"></textarea>
+                    </div>
+
+                    <!--Email Notification-->
+                    <label for="emailNotification"><?php echo $this->__('label.email_notification') ?></label>
+                    <input type="checkbox" id="emailNotification" name="emailNotification" 
+                    <?php if($values['emailNotification'] === 'true') {
+                        echo 'checked="checked" ';
+                    }?>/>
+
                     <label for="allDay"><?php echo $this->__('label.all_day') ?></label>
                     <input type="checkbox" id="allDay" name="allDay"
                     <?php if($values['allDay'] === 'true') {

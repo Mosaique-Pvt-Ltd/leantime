@@ -4670,6 +4670,18 @@ input[type='submit'].btn-default{
     word-spacing: 2px;
 }
 
+.btn,
+input[type='preview'].btn-default{
+    font-size: 13px;
+    padding: 3px 15px;
+    background: #eee;
+    text-shadow: none;
+    color: #333;
+    font-family: 'LatoBold', arial;
+    display: inline-block;
+    word-spacing: 2px;
+}
+
 .btn-group>.btn {
 }
 
@@ -5283,6 +5295,7 @@ body .btn-group.open .btn-primary.dropdown-toggle {
     margin: 0;
 }
 
+
 .popover, .popover-title {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
@@ -5348,6 +5361,8 @@ blockquote.pull-right {
     padding: 0 40px 0 0;
     border-right: 0;
 }
+
+
 
 /*
 .alert {
@@ -5631,6 +5646,17 @@ table td.center, table th.center {
 }
 
 input[type='submit'], button {
+    border: 1px solid #ddd;
+    margin: 0 0 9px;
+    padding: 4px 15px;
+    background-color: #990033;
+    color: #fff;
+    font-family: 'LatoBold', arial;
+    word-spacing: 2px;
+    font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif
+}
+
+input[type='preview'], button {
     border: 1px solid #ddd;
     margin: 0 0 9px;
     padding: 4px 15px;

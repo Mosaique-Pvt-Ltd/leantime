@@ -218,8 +218,6 @@ namespace leantime\core {
                 $this->mailAgent->send();
                 $this->mailAgent->clearAllRecipients();
             }
-
-
         }
 
     }

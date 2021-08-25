@@ -4,6 +4,7 @@
     $bookedHours = $this->get('bookedHours');
     $helper = $this->get('helper');
     $state = $this->get('state');
+    $urlData= $this->get('urlData');
 ?>
 
 <div class="pageheader">
@@ -40,6 +41,7 @@
                     <li><a href="#integrations"><?php echo $this->__('tabs.Integrations'); ?></a></li>
                     <li><a href="#files"><?php echo sprintf($this->__('tabs.files_with_count'), $this->get('numFiles')); ?></a></li>
                     <li><a href="#comment"><?php echo sprintf($this->__('tabs.discussion_with_count'), $this->get('numComments')); ?></a></li>
+                    <li><a href="#url"><?php echo $this->__('tabs.url'); ?></a></li>
                 </ul>
 
                 <div id="projectdetails">
@@ -127,8 +129,37 @@
 
                 </div>
 
-                    <div id="integrations">
+                <div id="url">
 
+                    <form method="post" action="<?=BASE_URL ?>/projects/addUrl" class="ticketModal">
+                    <div>
+                            <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $values['title']; ?>" />
+                            <input type="text" id="url" name="url" placeholder="URL" value="<?php echo $values['url']; ?>" />
+                            <input type="text" id="comment" name="comment" placeholder="Comment" value="<?php echo $values['comment']; ?>" />
+                            <p class="stdformbutton" style= "display:inline;">
+                                <input type="submit" name="add" id="add" value="<?php echo $this->__('buttons.add_url') ?>" class="button" />
+                            </p>
+                    </div><br>
+                         <table>
+                            <tr>
+                                <th>Title</th>
+                                <th>URL</th>
+                                <th>Comment</th>
+                            </tr> 
+
+                            <?php foreach($urlData as $data): ?>
+                                <tr>
+                                    <td><?php echo ($data['title']);?></td>
+                                    <td><?php echo ($data['url']);?></td>
+                                    <td><?php echo ($data['comment']);?></td>
+                                </tr>  
+                            <?php endforeach; ?>
+
+                        </table>
+                    </form>
+                </div>
+
+                    <div id="integrations">
                         <h4 class="widgettitle title-light"><span class="iconfa iconfa-leaf"></span>Mattermost</h4>
                         <div class="row">
                             <div class="col-md-3">
@@ -201,6 +232,30 @@
                 </div>
             </div>
         </div>
+
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th{
+        background-color: #1b75bb;
+        color: white;
+    }
+
+    td, th {
+        border: 1px solid white;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #ADD8E6;
+    }
+</style>
 
 <script type='text/javascript'>
 

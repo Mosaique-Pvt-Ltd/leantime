@@ -34,10 +34,10 @@ namespace leantime\domain\controllers {
 		 */
         public function run()
         {
-
             $tpl = new core\template();
             $projectRepo = new repositories\projects();
             $config = new core\config();
+        
 
             if(!core\login::userIsAtLeast("clientManager")) {
                 $tpl->display('general.error');
@@ -449,7 +449,10 @@ namespace leantime\domain\controllers {
                 $tpl->assign('role', $_SESSION['userdata']['role']);
                 $accounts = $projectRepo->getProjectAccounts($id);
                 $tpl->assign('accounts', $accounts);
-
+                
+                //For gettting the URL data for a particular user.
+                $urlData= $projectRepo->getUrl(core\login::getUserId());
+                $tpl->assign('urlData', $urlData);
 
                 $tpl->display('projects.showProject');
 

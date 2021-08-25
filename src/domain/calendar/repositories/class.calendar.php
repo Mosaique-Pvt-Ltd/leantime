@@ -186,6 +186,8 @@ namespace leantime\domain\repositories {
 
                 $newValues[] = array(
                     'title'  => $value['description'],
+                    'emailNote'  => $value['emailNote'],
+                    'emailNotification' => $value['emailNotification'],
                     'allDay' => $value['allDay'],
                     'dateFrom' => array(
                         'y' => date('Y', $dateFrom),
@@ -289,14 +291,16 @@ namespace leantime\domain\repositories {
         public function addEvent($values)
         {
 
-            $query = "INSERT INTO zp_calendar (userId, dateFrom, dateTo, description, allDay) 
-		VALUES (:userId, :dateFrom, :dateTo, :description, :allDay)";
+            $query = "INSERT INTO zp_calendar (userId, dateFrom, dateTo, description, emailNote, emailNotification, allDay) 
+		VALUES (:userId, :dateFrom, :dateTo, :description, :emailNote, :emailNotification, :allDay)";
 
             $stmn = $this->db->database->prepare($query);
             $stmn->bindValue(':userId', $_SESSION['userdata']['id'], PDO::PARAM_INT);
             $stmn->bindValue(':dateFrom', $values['dateFrom'], PDO::PARAM_STR);
             $stmn->bindValue(':dateTo', $values['dateTo'], PDO::PARAM_STR);
             $stmn->bindValue(':description', $values['description'], PDO::PARAM_STR);
+            $stmn->bindValue(':emailNote', $values['emailNote'], PDO::PARAM_STR);
+            $stmn->bindValue(':emailNotification', $values['emailNotification'], PDO::PARAM_STR);
             $stmn->bindValue(':allDay', $values['allDay'], PDO::PARAM_STR);
 
             $stmn->execute();
@@ -327,6 +331,8 @@ namespace leantime\domain\repositories {
 			dateFrom = :dateFrom,
 			dateTo = :dateTo, 
 			description = :description,
+            emailNote = :emailNote,
+            emailNotification= :emailNotification,
 			allDay = :allDay
 			WHERE id = :id AND userId = :userId LIMIT 1";
 
@@ -338,6 +344,8 @@ namespace leantime\domain\repositories {
             $stmn->bindValue(':dateFrom', $values['dateFrom'], PDO::PARAM_STR);
             $stmn->bindValue(':dateTo', $values['dateTo'], PDO::PARAM_STR);
             $stmn->bindValue(':description', $values['description'], PDO::PARAM_STR);
+            $stmn->bindValue(':emailNote', $values['emailNote'], PDO::PARAM_STR);
+            $stmn->bindValue(':emailNotification', $values['emailNotification'], PDO::PARAM_STR);
             $stmn->bindValue(':allDay', $values['allDay'], PDO::PARAM_STR);
 
             $stmn->execute();
