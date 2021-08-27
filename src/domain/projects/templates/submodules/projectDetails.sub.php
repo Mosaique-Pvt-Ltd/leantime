@@ -176,7 +176,7 @@ $helper = $this->get('helper');
 
 
     <div class="row-fluid padding-top">
-        <?php if ($login::userIsAtLeast("admin") && $project['id'] != '') : ?>
+        <?php if ($login::userIsAtLeast("clientManager") && $project['id'] != '') : ?>
             <div class="pull-right padding-top">
                 <a href="<?=BASE_URL?>/projects/delProject/<?php echo $project['id']?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__('buttons.delete'); ?></a>
             </div>
