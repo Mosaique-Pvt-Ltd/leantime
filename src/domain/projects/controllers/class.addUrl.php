@@ -41,8 +41,8 @@ namespace leantime\domain\controllers {
                     'comment' => ($_POST['comment'])
                 );
 
-                if ($values['title'] !== '') {
-
+                if ($values['title'] !== ''&& $values['url'] !== '') {
+                    
                     $urlRepo->addUrl($values);
 
                 } else {
@@ -53,12 +53,10 @@ namespace leantime\domain\controllers {
             }
 
             $urlData= $urlRepo->getUrl($values['userId']);
-
-            //print_r($urlData);
             
             $tpl->assign('urlData', $urlData);
             
-            $tpl->redirect(BASE_URL."/projects/showProject");     
+            $tpl->redirect(BASE_URL."/projects/showProject/".($_POST['id'])."#url");     
 
         }
 

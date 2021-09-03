@@ -133,6 +133,7 @@
 
                     <form method="post" action="<?=BASE_URL ?>/projects/addUrl" class="ticketModal">
                     <div>
+                            <input type="hidden" id="id" name="id" value="<?php echo $project['id']; ?>" />
                             <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $values['title']; ?>" />
                             <input type="text" id="url" name="url" placeholder="URL" value="<?php echo $values['url']; ?>" />
                             <input type="text" id="comment" name="comment" placeholder="Comment" value="<?php echo $values['comment']; ?>" />
