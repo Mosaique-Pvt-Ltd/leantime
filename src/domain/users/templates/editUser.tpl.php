@@ -112,7 +112,7 @@
                                         <?php echo $this->__($value); ?>
                                                 </option>
                                     <?php } ?>
-                                    </select><br />
+                                    </select><br /><br />
 
                                     <?php $userRoles = $this->get('roles');
                                     if($_SESSION["userdata"]['role'] == 'clientManager') { 
@@ -128,7 +128,7 @@
                                             <?=$this->__("label.roles.".$role) ?>
                                                     </option>
                                         <?php } ?>
-                                    </select> <br />
+                                    </select> <br /><br />
 
                                     <label for="client"><?php echo $this->__('label.client') ?></label>
                                     <select name='client' id="client">
@@ -141,7 +141,7 @@
                                                 <?php $this->e($client['name']) ?>
                                             </option>
                                             <?php endforeach; ?>
-                                    </select><br/>
+                                    </select><br/><br />
 
 								<label for="password"><?php echo $this->__('label.password'); ?></label> <input
 										   type="password" name="password" id="password" value="" autocomplete="new-password"/><br />
