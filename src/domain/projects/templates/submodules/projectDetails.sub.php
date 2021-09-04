@@ -83,22 +83,27 @@ $helper = $this->get('helper');
 
                         <div class="assign-container">
                             <?php foreach($this->get('availableUsers') as $row){ ?>
-                                    <p class="half">
-                                        <?php #This hidden checkbox will ensure that the disabled one still going to be save
-                                        if($_SESSION["userdata"]['id'] == $row['id']) { ?>
-                                            <input type='checkbox' name='editorId[]' value='<?php echo $row['id'] ?>' checked="checked" style="display:none;" />
-                                        <?php } ?>
-                                        <input type='checkbox' name='editorId[]' id="user-<?php echo $row['id'] ?>" value='<?php echo $row['id'] ?>'
-                                            <?php if(in_array($row['id'], $project['assignedUsers'])) : ?> checked="checked"<?php
-                                            endif; ?> <?php echo ($_SESSION["userdata"]['id'] == $row['id']) ? 'disabled="disabled"' : ''; ?> />
+                                <p class="">
+                                    <?php $hideIfSuperAdmin = ($row['role'] == 50 && $_SESSION["userdata"]['id'] != $row['id']) ? 'style="display:none;"' : '';
+                                    $checkboxAttr = $hideIfSuperAdmin;
+                                    $checkboxAttr .= (in_array($row['id'], $project['assignedUsers'])) ? ' checked="checked"' : '';
+                                    $checkboxAttr .= ($_SESSION["userdata"]['id'] == $row['id']) ? ' disabled="disabled"' : '';
+                                    echo '<input type="checkbox" name="editorId[]" id="user-'.$row['id'].'" value="'.$row['id'].'" '.$checkboxAttr.'/>';
 
-                                        <label for="user-<?php echo $row['id'] ?>"><?php printf( $this->__('text.full_name'), $this->escape($row['firstname']), $this->escape($row['lastname'])); ?></label>
-                                    </p>
+                                    #This hidden checkbox will ensure that the disabled one still going to be save
+                                    if($_SESSION["userdata"]['id'] == $row['id']) {
+                                        echo '<input type="checkbox" name="editorId[]" value="'.$row['id'].'" checked="checked" style="display:none;" />';
+                                    } ?>
+
+                                    <label for="user-<?php echo $row['id'] ?>" <?php echo $hideIfSuperAdmin; ?>>
+                                        <?php printf( $this->__('text.full_name'), $this->escape($row['firstname']), $this->escape($row['lastname'])); ?>
+                                    </label>
+                                </p>
                             <?php } ?>
                         </div>
                     </div>
 
-
+<?php #echo '<pre>'; print_r($this->get('availableUsers')); echo '</pre>'; ?>
                 </div>
             </div>
             <div class="row-fluid">
