@@ -10,7 +10,8 @@ min-width: 1200px
  */
 
 
-@media (max-width:575px) {
+/* @media (max-width:576px) { */
+@media (max-width:767px) {
 
 
     .headmenu > li > a {
@@ -351,7 +352,6 @@ min-width: 1200px
 
     .loginpage .pagetitle {
         padding-left: 0px;
-        margin-left: 60px;
     }
 
     .row-fluid .column {
@@ -2973,5 +2973,13 @@ min-width: 1200px
     }
 }
 
-
+.to-do-date-container {
+    padding-top:100px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .to-do-date-container {
+      padding-top:0px;
+    }
+  }
 

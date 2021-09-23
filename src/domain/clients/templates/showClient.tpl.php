@@ -154,9 +154,7 @@ $users = $this->get('users');
                                    value="<?php echo $this->__('buttons.save') ?>" class="btn btn-primary" />
                         </div>
                         <div class="col-md-6 align-right">
-                            <?php if($login::userIsAtLeast("admin")) { ?>
                             <a href="<?=BASE_URL ?>/clients/delClient/<?php $this->e($_GET['id']); ?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__('links.delete') ?></a>
-                            <?php } ?>
                         </div>
                     </div>
 

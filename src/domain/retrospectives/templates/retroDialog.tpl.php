@@ -18,7 +18,7 @@ if(isset($canvasItem['id']) && $canvasItem['id'] != '') {$id = $canvasItem['id']
 
 <div class="showDialogOnLoad" style="display:none;">
 
-    <h4 class="widgettitle title-light"><i class="iconfa iconfa-columns"></i>
+    <h4 class="widgettitle title-light">
         <?php
         if($canvasItem['description'] == "") {
             echo $this->__("headlines.retrospectives");
@@ -49,8 +49,10 @@ if(isset($canvasItem['id']) && $canvasItem['id'] != '') {$id = $canvasItem['id']
         <?php if($id != '') {?>
             <a href="<?=BASE_URL ?>/retrospectives/delCanvasItem/<?php echo $id;?>" class="retroModal delete right"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete") ?></a>
         <?php } ?>
+        <div class="pull-right">
+        <input type="submit" class="btn btn-default" value="<?php echo $this->__("buttons.save_and_close")?>" id="saveAndClose" onclick="leantime.retroController.setCloseModal();"/>
         <input type="submit" value="<?php echo $this->__("buttons.save")?>" id="primaryCanvasSubmitButton"/>
-        <input type="submit" value="<?php echo $this->__("buttons.save_and_close")?>" id="saveAndClose" onclick="leantime.retroController.setCloseModal();"/>
+        </div>
         <?php if($id !== '') { ?>
             <br /><br />
             <h4 class="widgettitle title-light"><span class="fas fa-map"></span> <?php echo $this->__("headlines.attached_milestone") ?></h4>

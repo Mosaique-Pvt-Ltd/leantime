@@ -9,7 +9,6 @@ $statusLabels = $this->get("statusLabels");
 ?>
 
 <div class="pageheader">
-    <div class="pageicon"><span class="fas fa-flask"></span></div>
     <div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
         <h1><?=$this->__("headline.lean_canvas") ?></h1>
@@ -22,39 +21,44 @@ $statusLabels = $this->get("statusLabels");
         <?php echo $this->displayNotification(); ?>
 
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <span class="currentSprint">
+                        <form action="" method="post">
+                            <?php if(count($this->get('allCanvas')) > 0) {?>
+                            <select data-placeholder="<?=$this->__("input.placeholders.filter_by_board") ?>" name="searchCanvas" class="mainSprintSelector show-canvas-mainSprintSelector" onchange="form.submit()">
+                                <?php
+                                $lastClient = "";
+                                $i=0;
+                                foreach($this->get('allCanvas') as $canvasRow){ ?>
+
+                                    <?php echo"<option value='".$canvasRow["id"]."'";
+                                    if($this->get('currentCanvas') == $canvasRow["id"]) {
+                                        $canvasTitle = $canvasRow["title"];
+                                        echo" selected='selected' ";
+                                    }
+                                    echo">".$canvasRow["title"]."</option>"; ?>
+
+                                <?php }     ?>
+                            </select><br />
+                                <small><a href="javascript:void(0)" class="addCanvasLink" style="color: gray;"><?=$this->__("links.create_plan") ?></a></small> |
+                                <small><a href="javascript:void(0)" class="editCanvasLink " style="color: gray;"><?=$this->__("links.edit_board") ?></small> | 
+                                <?php if ($login::userIsAtLeast("clientManager")) { ?>
+                                <small><a href="<?=BASE_URL ?>/leancanvas/delCanvas/<?php echo $this->get('currentCanvas')?>" class="delete" style="color: gray;"><?=$this->__('links.delete_board') ?></a></small>
+                            <?php } ?>
+                            <?php } ?>
+                        </form>
+
+                    </span>
+            </div>
 
             <div class="col-md-4 center">
-                <span class="currentSprint">
-                    <form action="" method="post">
-                        <?php if(count($this->get('allCanvas')) > 0) {?>
-                           <select data-placeholder="<?=$this->__("input.placeholders.filter_by_board") ?>" name="searchCanvas" class="mainSprintSelector" onchange="form.submit()">
-                            <?php
-                            $lastClient = "";
-                            $i=0;
-                            foreach($this->get('allCanvas') as $canvasRow){ ?>
-
-                                <?php echo"<option value='".$canvasRow["id"]."'";
-                                if($this->get('currentCanvas') == $canvasRow["id"]) {
-                                    $canvasTitle = $canvasRow["title"];
-                                    echo" selected='selected' ";
-                                }
-                                echo">".$canvasRow["title"]."</option>"; ?>
-
-                            <?php }     ?>
-                        </select><br />
-                            <small><a href="javascript:void(0)" class="addCanvasLink"><?=$this->__("links.create_plan") ?></a></small> |
-                            <small><a href="javascript:void(0)" class="editCanvasLink "><?=$this->__("links.edit_board") ?></small>
-                        <?php } ?>
-                    </form>
-
-                </span>
+                
             </div>
             <div class="col-md-4">
                 <div class="pull-right">
 
                     <div class="btn-group viewDropDown">
-                        <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.full_canvas") ?> <?=$this->__("links.view") ?></button>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.full_canvas_title") ?> <?=$this->__("links.view") ?></button>
                         <ul class="dropdown-menu">
                             <li><a href="<?=BASE_URL ?>/leancanvas/simpleCanvas" ><?=$this->__("links.simple_canvas") ?></a></li>
                             <li><a href="<?=BASE_URL ?>/leancanvas/showCanvas" class="active"><?=$this->__("links.full_canvas") ?></a></li>
@@ -76,10 +80,10 @@ $statusLabels = $this->get("statusLabels");
 
 
                     <div class="column" style="width:20%">
-                        <h4 class="widgettitle title-primary">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
 
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=problem" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=problem" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["problem"]; ?>
@@ -87,7 +91,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_problem">
                         <?php foreach($this->get('canvasItems') as $row) { ?>
                             <?php if($row["box"] == "problem") {?>
-                                        <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                        <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -96,7 +100,7 @@ $statusLabels = $this->get("statusLabels");
                                                         <div class="inlineDropDownContainer" style="float:right;">
 
                                                             <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                                <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                             </a>
                                                             <ul class="dropdown-menu">
                                                                 <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -107,7 +111,7 @@ $statusLabels = $this->get("statusLabels");
                                                         </div>
                                                     <?php } ?>
 
-                                                    <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                    <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                     <?php
                                                     if($row["conclusion"] != "") {
@@ -188,15 +192,15 @@ $statusLabels = $this->get("statusLabels");
                                         </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=problem" class="canvasModal" id="problem"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=problem" class="canvasModal btn-block btn" id="problem"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
+                        <br>
 
-
-                        <h4 class="widgettitle title-secondary">
+                        <h4 class="widgettitle title-secondary widgettitle-show-canvas-default">
 
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=alternatives" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=alternatives" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["alternatives"]; ?>
@@ -204,7 +208,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_alternatives">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "alternatives") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -213,7 +217,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -224,7 +228,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -305,15 +309,15 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=alternatives" class="canvasModal" id="alternatives"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=alternatives" class="canvasModal btn btn-block" id="alternatives"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
 
                     <div class="column" style="width:20%">
-                        <h4 class="widgettitle title-primary">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=solution" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=solution" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["solution"]; ?>
@@ -321,7 +325,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_solution">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "solution") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -330,7 +334,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -341,7 +345,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModa show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -422,13 +426,13 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=solution"  class="canvasModal" id="solution"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=solution"  class="canvasModal btn btn-block" id="solution"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
-
-                        <h4 class="widgettitle title-primary">
+                        <br>
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=keymetrics" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=keymetrics" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["keymetrics"]; ?>
@@ -436,7 +440,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_metrics">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "keymetrics") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -445,7 +449,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -456,7 +460,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -537,15 +541,15 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=keymetrics" class="canvasModal" id="keymetrics"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=keymetrics" class="canvasModal btn btn-block" id="keymetrics"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
 
                     <div class="column" style="width:20%">
-                        <h4 class="widgettitle title-primary">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=uniquevalue" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=uniquevalue" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["uniquevalue"]; ?>
@@ -553,7 +557,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_uniquevalue">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "uniquevalue") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -562,7 +566,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -573,7 +577,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -654,13 +658,13 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=uniquevalue" class="canvasModal" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=uniquevalue" class="canvasModal btn btn-block" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
-
-                        <h4 class="widgettitle title-secondary">
+                        <br>
+                        <h4 class="widgettitle title-secondary widgettitle-show-canvas-default">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=highlevelconcept" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=highlevelconcept" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["highlevelconcept"]; ?>
@@ -668,7 +672,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_highlevelconcept">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "highlevelconcept") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -677,7 +681,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -688,7 +692,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -769,16 +773,16 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=highlevelconcept" class="canvasModal" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=highlevelconcept" class="canvasModal btn btn-block" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
 
                     </div>
 
                     <div class="column" style="width:20%">
-                        <h4 class="widgettitle title-primary">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=unfairadvantage" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=unfairadvantage" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["unfairadvantage"]; ?>
@@ -786,7 +790,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_unfair_advantage">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "unfairadvantage") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -795,7 +799,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -806,7 +810,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -887,13 +891,13 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=unfairadvantage" class="canvasModal" id="unfairadvantage"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=unfairadvantage" class="canvasModal btn btn-block" id="unfairadvantage"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
-
-                        <h4 class="widgettitle title-primary">
+                        <br>
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=channels" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=channels" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["channels"]; ?>
@@ -901,7 +905,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_channels">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "channels") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -910,7 +914,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -921,7 +925,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -1002,15 +1006,15 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=channels" class="canvasModal" id="channels"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=channels" class="canvasModal btn btn-block" id="channels"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
 
                     <div class="column" style="width:20%">
-                        <h4 class="widgettitle title-primary">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=customersegment" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=customersegment" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["customersegment"]; ?>
@@ -1018,7 +1022,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner even status_customers">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "customersegment") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -1027,7 +1031,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -1038,7 +1042,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -1119,20 +1123,20 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=customersegment" class="canvasModal" id="customersegment"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=customersegment" class="canvasModal btn btn-block" id="customersegment"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
-
-                        <h4 class="widgettitle title-secondary">
+                        <br>
+                        <h4 class="widgettitle title-secondary widgettitle-show-canvas-default">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=earlyadopters" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=earlyadopters" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
                             <?php echo $canvasLabels["earlyadopters"]; ?>
                         </h4>
                         <div class="contentInner even status_earlyadopters">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "earlyadopters") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -1141,7 +1145,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -1152,7 +1156,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -1233,18 +1237,18 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=earlyadopters" class="canvasModal" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=earlyadopters" class="canvasModal btn btn-block" id="uniquevalue"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
 
                 </div>
 
                 <div class="row-fluid" id="secondRow">
-                    <div class="column" style="width:50%">
-                        <h4 class="widgettitle title-primary">
+                    <div class="column" style="width:50%; margin-top:10px;">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=cost" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=cost" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["cost"]; ?>
@@ -1252,7 +1256,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner full status_uniquevalue">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "cost") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -1261,7 +1265,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -1272,7 +1276,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -1353,15 +1357,15 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=cost" class="canvasModal" id="cost"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=cost" class="canvasModal btn btn-block" id="cost"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
 
-                    <div class="column" style="width:50%">
-                        <h4 class="widgettitle title-primary">
+                    <div class="column" style="width:50%; margin-top:10px;">
+                        <h4 class="widgettitle title-primary widgettitle-show-canvas">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=revenue" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=researchlabels&label=revenue" class="editLabelModal editHeadline"><i class="fas fa-edit text-color-light"></i></a>
                             <?php } ?>
 
                             <?php echo $canvasLabels["revenue"]; ?>
@@ -1369,7 +1373,7 @@ $statusLabels = $this->get("statusLabels");
                         <div class="contentInner status_uniquevalue">
                             <?php foreach($this->get('canvasItems') as $row) { ?>
                                 <?php if($row["box"] == "revenue") {?>
-                                    <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                    <div class="ticketBox show-canvas-table-ticketBox" id="item_<?php echo $row["id"];?>">
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -1378,7 +1382,7 @@ $statusLabels = $this->get("statusLabels");
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0)" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform:rotate(90deg)" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.edit"); ?></li>
@@ -1389,7 +1393,7 @@ $statusLabels = $this->get("statusLabels");
                                                     </div>
                                                 <?php } ?>
 
-                                                <h4><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/leancanvas/editCanvasItem/<?php echo $row["id"];?>" class="canvasModal show-canvas-title" data="item_<?php echo $row["id"];?>"><?php $this->e($row["description"]);?></a></h6>
 
                                                 <?php
                                                 if($row["conclusion"] != "") {
@@ -1470,8 +1474,8 @@ $statusLabels = $this->get("statusLabels");
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                            <br />
-                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=revenue" class="canvasModal" id="revenue"><?=$this->__('links.add_new_canvas_item') ?></a>
+                            
+                            <a href="<?=BASE_URL ?>/leancanvas/editCanvasItem?type=revenue" class="canvasModal btn btn-block" id="revenue"><?=$this->__('links.add_new_canvas_item') ?></a>
                         </div>
                     </div>
                 </div>
@@ -1479,10 +1483,7 @@ $statusLabels = $this->get("statusLabels");
             </div>
             <div class="clearfix"></div>
 
-            <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                <br />
-                <a href="<?=BASE_URL ?>/leancanvas/delCanvas/<?php echo $this->get('currentCanvas')?>" class="delete right"><?=$this->__('links.delete_board') ?></a>
-            <?php } ?>
+            
 
         <?php } else {
 

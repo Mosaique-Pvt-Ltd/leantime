@@ -13,7 +13,6 @@ if(isset($_SESSION['userdata']['settings']['views']['roadmap'])){
 }
 ?>
 <div class="pageheader">
-    <div class="pageicon"><span class="fa fa-sliders"></span></div>
     <div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
         <h1><?=$this->__("headline.milestones"); ?></h1>
@@ -53,7 +52,7 @@ if(isset($_SESSION['userdata']['settings']['views']['roadmap'])){
                     </div>
 
                     <div class="btn-group viewDropDown">
-                        <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.gantt_view") ?> <?=$this->__("links.view") ?></button>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.gantt_view_title") ?> <?=$this->__("links.view") ?></button>
                         <ul class="dropdown-menu">
                             <li><a href="<?=BASE_URL ?>/tickets/roadmap" class="active"><?=$this->__("links.gantt_view") ?></a></li>
                             <li><a href="<?=BASE_URL ?>/tickets/showAllMilestones" ><?=$this->__("links.table") ?></a></li>

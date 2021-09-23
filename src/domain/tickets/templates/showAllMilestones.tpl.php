@@ -17,7 +17,6 @@
 ?>
 
 <div class="pageheader">
-    <div class="pageicon"><span class="fa fa-sliders"></span></div>
     <div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
         <h1><?=$this->__("headline.milestones"); ?></h1>
@@ -32,27 +31,16 @@
 		<form action="" method="get" id="ticketSearch">
             <input type="hidden" value="1" name="search"/>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-12">
                     <a href="<?=BASE_URL ?>/tickets/editMilestone" class="milestoneModal btn btn-primary"><?=$this->__("links.add_milestone"); ?></a>
-                </div>
-
-                <div class="col-md-2 center">
-
-                </div>
-                <div class="col-md-5">
-                    <div class="pull-right">
-
-                        <div id="tableButtons" style="display:inline-block"></div>
-
-
-                        <div class="btn-group viewDropDown">
-                            <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.table") ?> <?=$this->__("links.view") ?></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?=BASE_URL ?>/tickets/roadmap" ><?=$this->__("links.gantt_view") ?></a></li>
-                                <li><a href="<?=BASE_URL ?>/tickets/showAllMilestones" class="active"><?=$this->__("links.table") ?></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                            <div id="tableButtons" style="display:inline-block"></div>
+                            <div class="btn-group viewDropDown pull-right">
+                                <button class="btn dropdown-toggle milestone-table-select-btn" data-toggle="dropdown"><?=$this->__("links.table_title") ?> <?=$this->__("links.view") ?></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?=BASE_URL ?>/tickets/roadmap" ><?=$this->__("links.gantt_view") ?></a></li>
+                                    <li><a href="<?=BASE_URL ?>/tickets/showAllMilestones" class="active"><?=$this->__("links.table") ?></a></li>
+                                </ul>
+                            </div>
                 </div>
 
             </div>
@@ -60,19 +48,19 @@
             <div class="clearfix"></div>
 
         </form>
-            <table id="allTicketsTable" class="table table-bordered display" style="width:100%">
+            <table id="allTicketsTable" class="table table-bordered display table-responsive" style="width:100%; overflow:scroll;">
                 <colgroup>
-                    <col class="con1" width="15%">
-                    <col class="con0">
-                    <col class="con1">
-                    <col class="con0" width="120px">
-                    <col class="con1">
-                    <col class="con0">
-                    <col class="con1" width="50px">
-                    <col class="con0" width="50px">
-                    <col class="con1" width="50px">
-                    <col class="con0" width="15%">
-
+                    <col class="con1" width="10%">
+                    <col class="con0" width="10%">
+                    <col class="con1" width="10%">
+                    <col class="con0" width="10%">
+                    <col class="con1" width="9%">
+                    <col class="con0" width="9%">
+                    <col class="con1" width="9%">
+                    <col class="con0" width="9%">
+                    <col class="con1" width="5%">
+                    <col class="con0" width="10%">
+                    <col class="" width="9%">
 
                 </colgroup>
                 <thead>
@@ -90,6 +78,7 @@
                     <th><?= $this->__("label.estimated_hours_remaining"); ?></th>
                     <th><?= $this->__("label.booked_hours"); ?></th>
                     <th><?= $this->__("label.progress"); ?></th>
+                    <th></th>
 
                 </tr>
                 </thead>
@@ -187,9 +176,9 @@
                                 <?php echo $row->bookedHours ?>
                             </td>
 
-                            <td data-order="<?=$row->percentDone?>">
+                            <td data-order="<?=$row->percentDone?>" id="progress-bar-td">
                                 <?=sprintf($this->__("text.percent_complete"), $row->percentDone)?>
-                                <a style="float:right;" href="<?=BASE_URL?>/tickets/showAll?search=true&milestone=<?=$row->id?>"><?=$this->__("links.view_todos")?></a>
+                                
 
                                 <div class="progress" style="width: 100%;">
 
@@ -198,7 +187,9 @@
                                     </div>
                                 </div>
                             </td>
-
+                            <td>
+                                <a href="<?=BASE_URL?>/tickets/showAll?search=true&milestone=<?=$row->id?>"><?=$this->__("links.view_todos")?></a>
+                            </td>
                         </tr>
 
                     <?php } ?>

@@ -38,33 +38,34 @@
 
 </div>
 
-<div class="row " style="height:100%; width: 99%;">
-    <div class="col-md-6 hidden-phone regLeft" style="background:#<?php echo $_SESSION["companysettings.mainColor"]; ?>" >
-        <div class="row">
-            <div class="col-md-5">
+<div class="row " style="height:100%; margin-right: 0px;margin-left: 0px;">
+    <div class="col-md-12 col-sm-12 regRight"  style="padding-top:8%;text-align: -webkit-center;text-align: -moz-center;
+">
 
-            </div>
-            <div class="col-md-6" style="position:relative;">
-                <a href="<?=BASE_URL ?>/" target="_blank"><img src="<?php echo htmlentities($_SESSION["companysettings.logoPath"]); ?>" /></a>
-                <h1 style="font-family:Exo;  font-size: 64px; padding-left:15px; font-weight:400;"><?php echo $language->__("headlines.drive_impact"); ?></h1>
-                <span class="iq-objects-04 iq-fadebounce">
-				    <span class="iq-round"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-12 regRight"  style="box-shadow: -2px 0px 2px #494949; padding-top:14%; border-left: 1px solid #ddd;">
-
-        <div class="regpanel">
+        <div class="regpanel" style="width:290px; background:white;border-radius:10px">
             <div class="regpanelinner">
-                <div class="pageheader">
-                    <div class="pageicon"><span class="iconfa-signin"></span></div>
-                    <div class="pagetitle">
-                        <h5><?php echo htmlentities($_SESSION["companysettings.sitename"]); ?></h5>
-                        <h1><?php echo $language->__("headlines.reset_password"); ?></h1>
+                <div class="pageheader" style="padding-bottom: 0px;">
+                    <!-- <div class="pageicon"><span class="iconfa-signin"></span></div>
+                    <div class="pagetitle row">
+                        <h3 style="padding-left: 10px; padding-top: 5px;"><?php echo htmlentities($_SESSION["companysettings.sitename"]); ?></h3>
+                        
+                    </div> -->
+                    <!-- <img src="<?=BASE_URL ?>/images/logo.png" alt="CHD Group Logo" style="height: 60px;"> -->
+                    <div class="logo" style="display: grid; padding-bottom:10px">
+                        <a href="<?=BASE_URL ?>" style="background-size: 260px auto;min-height: 60px; background-repeat: no-repeat; background-image:url('<?php echo htmlentities($_SESSION["companysettings.logoPath"]); ?>')">&nbsp;</a>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                    <a href="<?=BASE_URL ?>/" style="float:left; margin-top:10px; color:gray; padding-left:20px;" class="text-left"><i class="fas fa-angle-left"></i> <?php echo $language->__("links.back_to_login"); ?></a>
                     </div>
                 </div>
-                <div class="regcontent"  style="margin-left: 90px;">
+                <div class="row">
+                    <div class="col-12">
+                    <h4 class="text-left" style="padding-left: 20px; padding-bottom:20px;"><strong><?php echo $language->__("headlines.reset_password"); ?></strong></h4>
+                    </div>
+                </div>
+                <div class="regcontent">
         
                     <form id="resetPassword" action="" method="post">
             
@@ -91,18 +92,19 @@
                             </div>
 
                         <?php }else{ ?>
-                            <p><?php echo $language->__("text.enter_email_address_to_reset"); ?><br /><br /></p>
-                            <div class="">
-                                <input type="text" name="username" id="username" placeholder="<?php echo $language->__("input.placeholders.enter_email"); ?>" />
+                            <p class="text-left"><?php echo $language->__("text.enter_email_address_to_reset"); ?><br /><br /></p>
+                            <div class="" >
+                                <input style="width:100%;" type="text" name="username" id="username" placeholder="<?php echo $language->__("input.placeholders.enter_email"); ?>" />
                             </div>
 
-                            <div class="">
-                                <a href="<?=BASE_URL ?>/" style="float:right; margin-top:10px;"><?php echo $language->__("links.back_to_login"); ?></a>
-                                <input type="submit" name="resetPassword" value="<?php echo $language->__("buttons.reset_password"); ?>" />
+                            <div class="" >
+                                
+                                <input type="submit" class="col-12 btn btn-block" style="margin-top:10px;background:#1374e9!important" name="resetPassword" value="<?php echo $language->__("buttons.reset_password"); ?>" />
                             </div>
                         <?php } ?>
 
                     </form>
+                    <br>
                 </div>
             </div>
         </div>

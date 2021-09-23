@@ -7,7 +7,6 @@ $canvasTitle = "";
 ?>
 
 <div class="pageheader">
-   <div class="pageicon"><i class="far fa-hand-spock"></i></div>
    <div class="pagetitle">
        <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
        <h1><?=$this->__('headline.retrospective') ?></h1>
@@ -18,16 +17,12 @@ $canvasTitle = "";
     <div class="maincontentinner">
     <?php echo $this->displayNotification(); ?>
 
-        <div class="row">
+        <div class="row" style="padding-top: 10px;">
             <div class="col-md-4">
-
-            </div>
-
-            <div class="col-md-4 center">
-                <span class="currentSprint">
+            <span class="currentSprint">
                     <form action="" method="post">
                         <?php if(count($this->get('allCanvas')) > 0) {?>
-                        <select name="searchCanvas" class="mainSprintSelector" onchange="form.submit()">
+                        <select name="searchCanvas" style="padding-left: 0px; min-width:200px; height:38px; font-size:15px;" class="mainSprintSelector retrospective-select-sprint" onchange="form.submit()">
                             <?php
                             $lastClient = "";
                             $i=0;
@@ -44,12 +39,18 @@ $canvasTitle = "";
 
                             <?php }     ?>
                         </select><br />
-                        <small><a href="javascript:void(0)" class="addCanvasLink "><?=$this->__('links.create_plan'); ?></a></small> |
-                        <small><a href="javascript:void(0)" class="editCanvasLink "><?=$this->__('links.edit_board'); ?></a></small>
+                        <small><a href="javascript:void(0)" class="addCanvasLink " style="color:gray;"><?=$this->__('links.create_plan'); ?></a></small> |
+                        <small><a href="javascript:void(0)" class="editCanvasLink " style="color:gray;"><?=$this->__('links.edit_board'); ?></a></small> | 
+                        <small><?php if ($login::userIsAtLeast("clientManager")) { ?>
+                        <a href="<?=BASE_URL ?>/retrospectives/delCanvas/<?php echo $this->get('currentCanvas')?>" class="delete" style="color:gray;"><?=$this->__('links.delete_board') ?></a>
+                    <?php } ?></small>
                         <?php } ?>
                     </form>
 
                     </span>
+            </div>
+
+            <div class="col-md-4 center">
             </div>
             <div class="col-md-4">
                 <div class="pull-right">
@@ -71,17 +72,17 @@ $canvasTitle = "";
 
                 <div class="column" style="width:33.33%">
 
-                    <h4 class="widgettitle title-primary">
-                        <?php if ($login::userIsAtLeast("clientManager")) { ?>
+                    <h4 class="widgettitle retrospective-widgettitle-title title-primary">
+                        <!-- <?php if ($login::userIsAtLeast("clientManager")) { ?>
                             <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=retrolabels&label=well" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
-                        <?php } ?>
+                        <?php } ?> -->
                         <?php echo $canvasLabels["well"]; ?>
                     </h4>
 
                     <div class="contentInner status_well">
                         <?php foreach($this->get('canvasItems') as $row) { ?>
                             <?php if($row["box"] == "well") {?>
-                                <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                <div class="ticketBox retrospective-ticketBox-style" id="item_<?php echo $row["id"];?>">
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -161,7 +162,7 @@ $canvasTitle = "";
                             <?php } ?>
                         <?php } ?>
                         <br />
-                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=well" class="retroModal" id="well"><?=$this->__('links.add_more');?></a>
+                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=well" class="retroModal add-more-btn btn btn-block" id="well"><?=$this->__('links.add_more');?></a>
                     </div>
 
 
@@ -169,17 +170,17 @@ $canvasTitle = "";
 
                 <div class="column" style="width:33.33%">
 
-                    <h4 class="widgettitle title-primary">
-                        <?php if ($login::userIsAtLeast("clientManager")) { ?>
+                    <h4 class="widgettitle retrospective-widgettitle-title title-primary">
+                        <!-- <?php if ($login::userIsAtLeast("clientManager")) { ?>
                             <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=retrolabels&label=notwell" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
-                        <?php } ?>
+                        <?php } ?> -->
                         <?php echo $canvasLabels["notwell"]; ?>
                     </h4>
 
                     <div class="contentInner status_notwell">
                         <?php foreach($this->get('canvasItems') as $row) { ?>
                             <?php if($row["box"] == "notwell") {?>
-                                <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                <div class="ticketBox retrospective-ticketBox-style" id="item_<?php echo $row["id"];?>">
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -259,7 +260,7 @@ $canvasTitle = "";
                             <?php } ?>
                         <?php } ?>
                         <br />
-                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=notwell" class="retroModal" id="well"><?=$this->__('links.add_more');?></a>
+                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=notwell" class="retroModal add-more-btn btn btn-block" id="well"><?=$this->__('links.add_more');?></a>
                     </div>
 
 
@@ -267,17 +268,17 @@ $canvasTitle = "";
 
                 <div class="column" style="width:33.33%">
 
-                    <h4 class="widgettitle title-primary">
-                        <?php if ($login::userIsAtLeast("clientManager")) { ?>
+                    <h4 class="widgettitle retrospective-widgettitle-title title-primary">
+                        <!-- <?php if ($login::userIsAtLeast("clientManager")) { ?>
                             <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=retrolabels&label=startdoing" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
-                        <?php } ?>
+                        <?php } ?> -->
                         <?php echo $canvasLabels["startdoing"]; ?>
                     </h4>
 
                     <div class="contentInner status_startdoing">
                         <?php foreach($this->get('canvasItems') as $row) { ?>
                             <?php if($row["box"] == "startdoing") {?>
-                                <div class="ticketBox" id="item_<?php echo $row["id"];?>">
+                                <div class="ticketBox retrospective-ticketBox-style" id="item_<?php echo $row["id"];?>">
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -357,7 +358,7 @@ $canvasTitle = "";
                             <?php } ?>
                         <?php } ?>
                         <br />
-                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=startdoing" class="retroModal" id="startdoing"><?=$this->__('links.add_more');?></a>
+                        <a href="<?=BASE_URL ?>/retrospectives/retroDialog?type=startdoing" class="retroModal add-more-btn btn btn-block" id="startdoing"><?=$this->__('links.add_more');?></a>
                     </div>
 
                 </div>
@@ -373,15 +374,11 @@ $canvasTitle = "";
 
         <div class="clearfix"></div>
 
-        <?php if ($login::userIsAtLeast("clientManager")) { ?>
-            <br />
-            <a href="<?=BASE_URL ?>/retrospectives/delCanvas/<?php echo $this->get('currentCanvas')?>" class="delete right"><?=$this->__('links.delete_board') ?></a>
-        <?php } ?>
 
     <?php } else {
 
          echo "<br /><br /><div class='center'>";
-        echo"<div style='width:50%' class='svgContainer'>";
+        echo"<div style='width:30%' class='svgContainer'>";
             echo file_get_contents(ROOT."/images/svg/undraw_team_spirit_hrr4.svg");
         echo"</div>";
 
@@ -408,16 +405,16 @@ $canvasTitle = "";
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><?php echo $this->__("headline.start_a_new_retrospective") ?></h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="overflow-y: clip;">
                             <label><?php echo $this->__("label.title_retrospective_board") ?></label>
-                            <input type="text" name="canvastitle" placeholder="<?php echo $this->__("input.placeholders.you_can_use_milestone_or_sprint") ?>" style="width:90%"/>
+                            <input type="text" name="canvastitle" placeholder="<?php echo $this->__("input.placeholders.you_can_use_milestone_or_sprint") ?>" style="width:100%"/>
 
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default"
                                     data-dismiss="modal"><?php echo $this->__("buttons.close") ?></button>
-                            <input type="submit" class="btn btn-default"
+                            <input type="submit" class="btn btn-primary"
                                    value="<?php echo $this->__("buttons.create_board") ?>" name="newCanvas"/>
                         </div>
                     </form>

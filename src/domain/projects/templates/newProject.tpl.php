@@ -6,16 +6,31 @@ $project = $this->get('values');
 ?>
 
 <div class="pageheader">
-
-    <div class="pull-right padding-top">
-        <a href="<?=BASE_URL ?>/projects/showAll" class="backBtn"><i class="far fa-arrow-alt-circle-left"></i> <?php echo $this->__('links.go_back') ?></a>
+    <div class="row">
+        <div class="col-12">
+            <h5><?php echo $this->__('label.administration') ?></h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="back-btn">
+            <a href="<?=BASE_URL ?>/projects/showAll" class="backBtn btn"><i class="fas fa-chevron-left"></i> <?php echo $this->__('links.go_back') ?></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="pagetitle">
+            
+                <h1><?php echo $this->__('headline.new_project') ?></h1>
+                <hr>
+            </div>
+        </div>
     </div>
 
-    <div class="pageicon"><span class="fa fa-suitcase"></span></div>
-    <div class="pagetitle">
-        <h5><?php echo $this->__('label.administration') ?></h5>
-        <h1><?php echo $this->__('headline.new_project') ?></h1>
-    </div>
+    
+
+    
 
 </div><!--pageheader-->
         
@@ -24,11 +39,7 @@ $project = $this->get('values');
 
         <?php echo $this->displayNotification(); ?>
 
-        <div class="tabbedwidget tab-primary projectTabs">
-
-            <ul>
-                <li><a href="#projectdetails"><?php echo $this->__('tabs.projectdetails'); ?></a></li>
-            </ul>
+        <div class="tabbedwidget tab-primary projectTabs"  style="border:0px;">
 
             <div id="projectdetails">
 

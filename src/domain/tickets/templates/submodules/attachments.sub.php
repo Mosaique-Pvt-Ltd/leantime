@@ -32,36 +32,22 @@ $ticket = $this->get('ticket');
 
     <ul id='medialist' class='listfile'>
     <?php foreach($this->get('files') as $file): ?>
-        <li class="<?php echo $file['moduleId'] ?>">
-            <div class="inlineDropDownContainer" style="float:right;">
-
-                <a href="javascript:void(0);" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header"><?php echo $this->__("subtitles.file"); ?></li>
-                    <li><a href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>"><?php echo $this->__("links.download"); ?></a></li>
-
-                    <?php  if ($login::userIsAtLeast("developer")) { ?>
-                        <li><a href="<?=BASE_URL ?>/tickets/showTicket/<?php echo $ticket->id ?>?delFile=<?php echo $file['id'] ?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete"); ?></a></li>
+           <div class="row">
+           <li class="span6" style="background:#f8f8f8; border:1px solid #e6e9f0;padding:20px; margin-left:15px">
+                    <a class="pull-left " href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>">
+                                <?php if (in_array(strtolower($file['extension']), $this->get('imgExtensions'))) :  ?>
+                            <?php endif; ?>
+                        <span class="filename" style="color:#000;"><?php echo $file['realName'] ?></span>
+                        <span class="pull-right">
+                        <?php  if ($login::userIsAtLeast("developer")) { ?>
+                        <a href="<?=BASE_URL ?>/tickets/showTicket/<?php echo $ticket->id ?>?delFile=<?php echo $file['id'] ?>" class="delete pull-right"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete"); ?></a>
                     <?php  } ?>
-
-                </ul>
-            </div>
-
-
-              <a class="cboxElement" href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>">
-                  <?php if (in_array(strtolower($file['extension']), $this->get('imgExtensions'))) :  ?>
-                      <img style='max-height: 50px; max-width: 70px;' src="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>" alt="" />
-                    <?php else: ?>
-                      <img style='max-height: 50px; max-width: 70px;' src='<?=BASE_URL ?>/images/thumbs/doc.png' />
-                    <?php endif; ?>
-                <span class="filename"><?php echo $file['realName'] ?></span>
-              </a>
-
+                        </span>
+                    </a>
            </li>
+           </div>
+           <br>
     <?php endforeach; ?>
-    <br class="clearall" />
     </ul>
 
 </div><!--mediamgr_content-->

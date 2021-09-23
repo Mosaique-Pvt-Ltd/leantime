@@ -19,7 +19,7 @@ if(isset($canvasItem['id']) && $canvasItem['id'] != '') {
 
 <div class="showDialogOnLoad" style="display:none;">
 
-    <h4 class="widgettitle title-light"><i class="iconfa iconfa-columns"></i> <?php echo $canvasTypes[$canvasItem['box']]; ?> <?php echo $canvasItem['description']; ?></h4>
+    <h4 class="widgettitle title-light"><?php echo $canvasTypes[$canvasItem['box']]; ?> <?php echo $canvasItem['description']; ?></h4>
 
     <?php echo $this->displayNotification(); ?>
 
@@ -29,17 +29,24 @@ if(isset($canvasItem['id']) && $canvasItem['id'] != '') {
         <input type="hidden" value="<?php echo $this->get('currentCanvas'); ?>" name="canvasId" />
         <input type="hidden" value="<?php echo $canvasItem['box'] ?>" name="box" id="box"/>
         <input type="hidden" value="<?php echo $id ?>" name="itemId" id="itemId"/>
-        <label><?=$this->__("label.hypothesis") ?></label>
-        <input type="text" name="description" value="<?php echo $canvasItem['description'] ?>" placeholder="<?=$this->__("input.placeholders.describe_hypothesis") ?>" style="width:100%"/><br />
-        <label><?=$this->__("label.status") ?></label>
-        <select name="status">
-            <option value="danger" <?php if($canvasItem['status'] == 'danger') {echo"selected='selected' ";
-                                    }?>><?=$this->__("status.not_validated") ?></option>
-            <option value="info" <?php if($canvasItem['status'] == 'info') {echo"selected='selected' ";
-                                    }?>><?=$this->__("status.validated_false") ?></option>
-            <option value="success" <?php if($canvasItem['status'] == 'success') {echo"selected='selected' ";
-                                    }?>><?=$this->__("status.validated_true") ?></option>
-        </select><br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <label><?=$this->__("label.hypothesis") ?></label>
+                <input type="text" name="description" value="<?php echo $canvasItem['description'] ?>" placeholder="<?=$this->__("input.placeholders.describe_hypothesis") ?>" style="width:100%"/>
+            </div>
+            <div class="col-md-6">
+                <label><?=$this->__("label.status") ?></label>
+                <select name="status" class="col-12">
+                    <option value="danger" <?php if($canvasItem['status'] == 'danger') {echo"selected='selected' ";
+                                            }?>><?=$this->__("status.not_validated") ?></option>
+                    <option value="info" <?php if($canvasItem['status'] == 'info') {echo"selected='selected' ";
+                                            }?>><?=$this->__("status.validated_false") ?></option>
+                    <option value="success" <?php if($canvasItem['status'] == 'success') {echo"selected='selected' ";
+                                            }?>><?=$this->__("status.validated_true") ?></option>
+                </select>
+            </div>
+        </div>
         <label><?=$this->__("label.assumptions") ?></label>
         <textarea rows="3" cols="10" name="assumptions" class="modalTextArea researchTextEditor" placeholder="<?=$this->__("input.placeholders.describe_assumption") ?>"><?php echo $canvasItem['assumptions'] ?></textarea><br />
         <label><?=$this->__("label.data") ?></label>
@@ -50,10 +57,11 @@ if(isset($canvasItem['id']) && $canvasItem['id'] != '') {
         <input type="hidden" name="changeItem" value="1" />
 
         <?php if($id != '') {?>
-            <a href="<?=BASE_URL ?>/leancanvas/delCanvasItem/<?php echo $id;?>" class="canvasModal delete right"><i class="fa fa-trash"></i> Delete <?php echo $canvasTypes[$canvasItem['box']]; ?></a>
+            <a href="<?=BASE_URL ?>/leancanvas/delCanvasItem/<?php echo $id;?>" class="canvasModal delete"><i class="fa fa-trash"></i> Delete <?php echo $canvasTypes[$canvasItem['box']]; ?></a>
         <?php } ?>
-        <input type="submit" value="<?=$this->__("buttons.save") ?>" id="primaryCanvasSubmitButton"/>
-        <input type="submit" value="<?=$this->__("buttons.save_and_close") ?>" id="saveAndClose" onclick="leantime.leanCanvasController.setCloseModal();"/>
+        <input type="submit" style="margin-left: 5px;" class="right" value="<?=$this->__("buttons.save") ?>" id="primaryCanvasSubmitButton"/>
+        <input type="submit" style="height:30px;" class="right btn btn-default" value="<?=$this->__("buttons.save_and_close") ?>" id="saveAndClose" onclick="leantime.leanCanvasController.setCloseModal();"/>
+        <br><br>
         <?php if($id !== '') { ?>
             <br /><br />
             <h4 class="widgettitle title-light"><span class="fas fa-map"></span> <?=$this->__("headlines.attached_milestone") ?></h4>

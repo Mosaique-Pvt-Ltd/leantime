@@ -237,7 +237,7 @@ html .fc,
 
 .fc-state-default {
 	background-color: #fff;
-	border: 2px solid #ccc;
+	border: 1px solid #ccc;
 	margin-left: -1px;
 	font-size: 11px;
 	text-transform: uppercase;
@@ -415,9 +415,10 @@ table.fc-border-separate {
 	}
 	
 .fc-grid .fc-day-number {
-	float: right;
 	padding: 5px 7px;
 	font-size: 14px;
+	text-align: center;
+	padding-top: 20px;
 	}
 	
 .fc-grid .fc-other-month .fc-day-number {
@@ -604,3 +605,9 @@ table.fc-border-separate {
 	}
 	
 	
+.fc-today, .fc-state-highlight{
+	background: #f1f1e7!important;
+}
+.fc-day-header{
+	border: 1px solid #ddd;
+}

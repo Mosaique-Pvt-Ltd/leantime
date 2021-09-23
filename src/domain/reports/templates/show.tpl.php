@@ -13,7 +13,6 @@
 ?>
 
 <div class="pageheader">
-    <div class="pageicon"><span class="fa fa-chart-bar"></span></div>
     <div class="pagetitle">
         <div class="row">
             <div class="col-lg-8">
@@ -30,7 +29,7 @@
         <?php echo $this->displayNotification(); ?>
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
 
                 <div class="row" id="yourToDoContainer">
                     <div class="col-md-12">
@@ -38,14 +37,14 @@
                             <h5 class="subtitle"><?=$this->__("subtitles.summary")?> <?php if($fullReportLatest!= false){?>(<?=$this->getFormattedDateString($fullReportLatest['date']) ?>)<?php } ?> </h5>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="boxedHighlight">
+                                    <div class="boxedHighlight report-highlight-box" style="background: #e9f1fe;color:black">
 
                                         <span class="headline"><?=$this->__("label.planned_hours")?></span>
                                         <span class="value"><?php if($fullReportLatest !== false && $fullReportLatest['sum_planned_hours'] != null) echo $fullReportLatest['sum_planned_hours']; else echo 0; ?></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="boxedHighlight">
+                                    <div class="boxedHighlight report-highlight-box" style="background: #c3b4d1;color:black">
 
 
                                         <span class="headline"><?=$this->__("label.estimated_hours_remaining")?></span>
@@ -53,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="boxedHighlight">
+                                    <div class="boxedHighlight report-highlight-box" style="background: #f8f9fb;color:black">
 
 
                                         <span class="headline"><?=$this->__("label.booked_hours")?></span>
@@ -62,7 +61,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <div class="boxedHighlight">
+                                    <div class="boxedHighlight report-highlight-box" style="background: #c4c7d0;color:black">
                                         <span class="headline"><?=$this->__("label.open_todos")?></span>
                                         <span class="value">
                                             <?php
@@ -148,10 +147,10 @@
 
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
 
-                <div class="row" id="projectProgressContainer">
-                    <div class="col-md-12">
+                <div class="row" id="projectProgressContainer" style="box-shadow:0px 2px 5px lightgray;border-radius: 5px;">
+                    <div class="col-md-12" style="padding-top: 15px;">
 
                         <h5 class="subtitle"><?=$this->__("subtitles.project_progress")?></h5>
 
@@ -161,32 +160,43 @@
                         <br /><br />
                     </div>
                 </div>
-                <div class="row" id="milestoneProgressContainer">
-                    <div class="col-md-12">
-                        <h5 class="subtitle"><?=$this->__("headline.milestones") ?></h5>
+                <br>
+                <div class="row" id="milestoneProgressContainer" style="box-shadow: 0px 2px 5px lightgray; border-radius:5px;">
+                    <div class="col-md-12" style="padding:0px;">
                         <ul class="sortableTicketList" >
-                            <?php
-                            if(count($this->get('milestones')) == 0){
-                                echo"<div class='center'><br /><h4>".$this->__("headlines.no_milestones")."</h4>
-                                ".$this->__("text.milestones_help_organize_projects")."<br /><br /><a href='".BASE_URL."/tickets/roadmap'>".$this->__("links.goto_milestones")."</a>";
-                            }
-                            ?>
-                            <?php foreach($this->get('milestones') as $row){
-
-                                if($row->editTo == "0000-00-00 00:00:00") {
-                                    $date = $this->__("text.no_date_defined");
-                                }else {
-                                    $date = new DateTime($row->editTo);
-                                    $date= $date->format($this->__("language.dateformat"));
-                                }
-
-                                    ?>
                                     <li class="ui-state-default" id="milestone_<?php echo $row->id; ?>" >
                                         <div class="ticketBox fixed">
+                                        <h5 class="subtitle"><?=$this->__("headline.milestones") ?></h5>
+                                        <?php
+                                        if(count($this->get('milestones')) == 0){
+                                            echo"<div class='center'><br /><h4>".$this->__("headlines.no_milestones")."</h4>
+                                            ".$this->__("text.milestones_help_organize_projects")."<br /><br /><a href='".BASE_URL."/tickets/roadmap'>".$this->__("links.goto_milestones")."</a>";
+                                        }
+                                        ?>
+                                        <?php foreach($this->get('milestones') as $row){
+
+                                            if($row->editTo == "0000-00-00 00:00:00") {
+                                                $date = $this->__("text.no_date_defined");
+                                            }else {
+                                                $date = new DateTime($row->editTo);
+                                                $date= $date->format($this->__("language.dateformat"));
+                                            }
+
+                                                ?>
+
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <strong><a href="<?=BASE_URL ?>/tickets/editMilestone/<?php echo $row->id;?>" class="milestoneModal"><?php $this->e($row->headline); ?></a></strong>
+                                                    <a href="<?=BASE_URL ?>/tickets/editMilestone/<?php echo $row->id;?>" class="milestoneModal" style="color:#000;"><?php $this->e($row->headline); ?></a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $row->percentDone; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentDone; ?>%">
+                                                            <span class="sr-only"><?=sprintf($this->__("text.percent_complete"), $row->percentDone)?></span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -199,22 +209,14 @@
                                                     <?=sprintf($this->__("text.percent_complete"), $row->percentDone)?>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $row->percentDone; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $row->percentDone; ?>%">
-                                                            <span class="sr-only"><?=sprintf($this->__("text.percent_complete"), $row->percentDone)?></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <br>
+                                            <?php
+                                              } ?>
                                         </div>
-                                    </li>
-                                <?php
-                            } ?>
+                                    </li>            
 
                         </ul>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </div>

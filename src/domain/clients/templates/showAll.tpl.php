@@ -3,7 +3,6 @@
 ?>
 
 <div class="pageheader">
-    <div class="pageicon"><span class="fa fa-address-book"></span></div>
     <div class="pagetitle">
         <h5><?php echo $this->__('label.administration') ?></h5>
         <h1><?php echo $this->__('headline.all_clients') ?></h1>
@@ -17,7 +16,7 @@
 
             <?php
             if($login::userIsAtLeast('manager')){
-            echo $this->displayLink('clients.newClient', "<i class='iconfa-plus'></i> ".$this->__('link.new_client'), null, array('class' => 'btn btn-primary btn-rounded')); ?>
+            echo $this->displayLink('clients.newClient', "<i class='iconfa-plus'></i> ".$this->__('link.new_client'), null, array('class' => 'btn btn-primary btn-create-new-client btn-rounded')); ?>
             <?php } ?>
 
             <table class="table table-bordered" cellpadding="0" cellspacing="0" border="0" id="allClientsTable">
@@ -37,10 +36,10 @@
 
             <?php foreach($this->get('allClients') as $row) { ?>
                 <tr>
-                    <td>
+                    <td class="client-name-column">
                 <?php echo $this->displayLink('clients.showClient', $this->escape($row['name']), array('id' => $this->escape($row['id']))) ?>
                     </td>
-                    <td><a href="<?php $this->e($row['internet']); ?>" target="_blank"><?php $this->e($row['internet']); ?></a></td>
+                    <td><a href="<?php $this->e($row['internet']); ?>" style="color: #325ecf;" target="_blank"><?php $this->e($row['internet']); ?></a></td>
                     <td><?php echo $row['numberOfProjects']; ?></td>
                 </tr>
             <?php } ?>

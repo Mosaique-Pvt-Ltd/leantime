@@ -21,22 +21,14 @@ namespace leantime\domain\controllers {
         public function run()
         {
 
-            $mail = new core\mailer();
             $tpl = new core\template();
             $calendarRepo = new repositories\calendar();
-
-            $userId = $_SESSION['userdata']['id'];
-            $userRepo = new repositories\users();
-
-            $userData = $userRepo->getUser($userId);
 
 
             $values = array(
                 'description' => '',
                 'dateFrom' => '',
                 'dateTo' => '',
-                'emailNote' => '',
-                'emailNotification' => '',
                 'allDay' => ''
             );
 
@@ -48,14 +40,6 @@ namespace leantime\domain\controllers {
                     $allDay = 'false';
                 }
 
-                if (isset($_POST['emailNotification']) === true) {
-                    $emailNotification = 'true';
-                } else {
-                    $emailNotification = 'false';
-                }
-
-                
-
                 if (isset($_POST['dateFrom']) === true && isset($_POST['timeFrom']) === true) {
                     $dateFrom = date('Y-m-d H:i:01', strtotime($_POST['dateFrom']." ".$_POST['timeFrom']));
                 }
@@ -65,12 +49,11 @@ namespace leantime\domain\controllers {
                     $dateTo = date('Y-m-d H:i:01', strtotime($_POST['dateTo']." ".$_POST['timeTo']));
                 }
 
+
                 $values = array(
                     'description' => ($_POST['description']),
                     'dateFrom' => $dateFrom,
                     'dateTo' => $dateTo,
-                    'emailNote' => ($_POST['emailNote']),
-                    'emailNotification' => $emailNotification,
                     'allDay' => $allDay
                 );
 
@@ -87,23 +70,6 @@ namespace leantime\domain\controllers {
                 }
 
                 $tpl->assign('values', $values);
-
-                // To send email on checking the text box
-                if (isset($_POST['emailNotification']) === true) {
-                    
-                    $emailNotification = 'true';
-                    $mail->setSubject('Your event reminder');
-                    // $actual_link = "".BASE_URL."/resetPassword/".$resetLink;
-                    $mail->setHtml(sprintf('Task: '.$values['description'].'<br> Note: '.$values['emailNote'].'<br> Start date: '.$values['dateFrom'].
-                    '<br> End date: '.$values['dateTo'] ));
-
-                    $to = array($userData['username']);
-                
-                    $mail->sendMail($to, "Leantime System");
-                        
-                } else {
-                    $emailNotification = 'false';
-                }
             }
 
             $tpl->assign('values', $values);

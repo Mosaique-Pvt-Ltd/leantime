@@ -24,12 +24,12 @@
 }
 
 .column .contentInner {
-    background:#f0f0f0;
     border:1px solid #ccc;
     padding:10px 5px;
-    min-height:200px;
+    /* min-height:200px; */
     /*overflow-x: hidden;*/
     overflow-y: auto;
+    border-radius: 0px 0px 5px 5px;
 }
 
 .ticketBox:hover {
@@ -92,6 +92,21 @@
 .titleBorderColor-1 {
     border-bottom:5px solid #999999;
 }
+.title-bg-color1{
+    background: #1374e9!important;
+}
+.title-bg-color2{
+    background: #fdab3f!important;
+}
+.title-bg-color3{
+    background: #19c861!important;
+}
+.title-bg-color4{
+    background: #e2445d!important;
+}
+.title-bg-color0{
+    background: #fe7620!important;
+}
 
 .sortableTicketList li{
     list-style:none;
@@ -103,7 +118,6 @@
 
 .sortableTicketList .ticketBox {
     background:#fff;
-    border:1px solid #ddd;
     padding:10px;
     padding-bottom:10px;
     margin-bottom:5px;

@@ -9,7 +9,6 @@
     $todoTypeIcons  = $this->get("ticketTypeIcons");
 
     $efforts        = $this->get('efforts');
-    $priorities     = $this->get('priorities');
 
     //All states >0 (<1 is archive)
     $numberofColumns = count($this->get('allTicketStates'))-1;
@@ -19,7 +18,6 @@
 
  <div class="pageheader">
 
- 	<div class="pageicon"><span class="<?php echo $this->getModulePicture() ?>"></span></div>
 	<div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
 	    <h1><?=$this->__("headlines.todos"); ?></h1>
@@ -48,6 +46,7 @@
                             <li><a href="<?=BASE_URL ?>/sprints/editSprint" class="sprintModal"><?=$this->__("links.add_sprint") ?></a></li>
                         </ul>
                     </div>
+                    <a onclick="leantime.ticketsController.toggleFilterBar();" class="btn btn-default"><?=$this->__("links.filter") ?></a>
 
                 </div>
 
@@ -89,9 +88,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="pull-right">
-                        <a onclick="leantime.ticketsController.toggleFilterBar();" class="btn btn-default"><?=$this->__("links.filter") ?></a>
                         <div class="btn-group viewDropDown">
-                            <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.kanban") ?> <?=$this->__("links.view") ?></button>
+                            <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.kanban-title") ?> <?=$this->__("links.view") ?></button>
                             <ul class="dropdown-menu">
                                 <li><a href="<?php if(isset($_SESSION['lastFilterdTicketKanbanView']) && $_SESSION['lastFilterdTicketKanbanView'] != ""){ echo $_SESSION['lastFilterdTicketKanbanView']; }else{ echo BASE_URL."/tickets/showKanban"; } ?>" class="active"><?=$this->__("links.kanban") ?></a></li>
                                 <li><a href="<?php if(isset($_SESSION['lastFilterdTicketTableView']) && $_SESSION['lastFilterdTicketTableView'] != ""){ echo $_SESSION['lastFilterdTicketTableView']; }else{ echo BASE_URL."/tickets/showAll"; } ?>" ><?=$this->__("links.table") ?></a></li>
@@ -104,8 +102,8 @@
 
 			<div class="clearfix"></div>
 			<div class="filterBar <?php
-            if($searchCriteria['users'] == '' && $searchCriteria['milestone'] == '' && $searchCriteria['type'] == '') { echo "hideOnLoad"; } ?>">
-				<div class="row-fluid" style="opacity:0.4">
+            if($searchCriteria['users'] == '' && $searchCriteria['milestone'] == '' && $searchCriteria['type'] == '') { echo "hideOnLoad"; } ?>" style="border-radius: 5px;">
+				<div class="row-fluid" style="opacity:0.4;margin-top:3px;">
 
 					<div class="filterBoxLeft">
                         <label class="inline"><?=$this->__("label.user") ?></label>
@@ -167,25 +165,6 @@
                     </div>
 
                     <div class="filterBoxLeft">
-
-                        <label class="inline"><?=$this->__("label.todo_priority") ?></label>
-                        <div class="form-group">
-                            <select data-placeholder="<?=$this->__("input.placeholders.filter_by_priority") ?>" title="<?=$this->__("input.placeholders.filter_by_priority") ?>" name="type" id="prioritySelect">
-                                <option value=""><?=$this->__("label.all_priorities") ?></option>
-                                <?php foreach($this->get('priorities') as $priorityKey=>$priorityValue){ 	?>
-
-                                    <?php echo"<option value='".$priorityKey."'";
-
-                                    if(isset($searchCriteria['priority']) && ($searchCriteria['priority'] == $priorityKey)) echo" selected='selected' ";
-
-                                    echo">$priorityValue</option>"; ?>
-
-                                <?php } 	?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filterBoxLeft">
                         <label class="inline"><?=$this->__("label.search_term") ?></label><br />
                         <input type="text" class="form-control input-default" id="termInput" name="term" placeholder="Search" value="<?php $this->e($searchCriteria['term']); ?>">
                         <input type="submit" value="Search" class="form-control btn btn-primary pull-left" />
@@ -210,16 +189,16 @@
 
 						<div class="column" style="width:<?=$size?>%;">
 
-                            <h4 class="widgettitle title-primary titleBorderColor<?php echo $key; ?>">
+                            <h4 class="widgettitle title-primary todo-kanban-title title-bg-color<?php echo $key; ?>">
                             <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=ticketlabels&label=<?=$key?>" class="editLabelModal editHeadline"><i class="fas fa-edit"></i></a>
+                                <a href="<?=BASE_URL ?>/setting/editBoxLabel?module=ticketlabels&label=<?=$key?>" class="editLabelModal editHeadline"><i class="fas fa-pencil-alt" style="color:#fff;"></i></a>
                             <?php } ?>
                                 <strong class="count">0</strong>
                             <?php $this->e($statusRow['name']); ?></h4>
 
-							<div class="contentInner <?php echo"status_".$key;?>" >
+							<div class="contentInner <?php echo"status_".$key;?>" style="background: #f0f3f8; height:auto;">
                                 <div>
-                                    <a href="javascript:void(0);" class="quickAddLink" id="ticket_new_link_<?=$key?>"  onclick="jQuery('#ticket_new_<?=$key?>').toggle('fast'); jQuery(this).toggle('fast');"><i class="fas fa-plus-circle"></i> <?php echo $this->__("links.add_todo_no_icon"); ?></a>
+                                    <a href="javascript:void(0);" class="quickAddLink" id="ticket_new_link_<?=$key?>"  onclick="jQuery('#ticket_new_<?=$key?>').toggle('fast'); jQuery(this).toggle('fast');" style="color: #bebebe!important;"><i class="fas fa-plus"></i> <?php echo $this->__("links.add_todo_no_icon"); ?></a>
                                     <div class="ticketBox hideOnLoad " id="ticket_new_<?=$key?>">
 
                                         <form method="post">
@@ -238,7 +217,7 @@
                                 </div>
 								<?php foreach($this->get('allTickets') as $row) { ?>
 									<?php if($row["status"] == $key){?>
-									<div class="ticketBox moveable container" id="ticket_<?php echo$row["id"];?>">
+									<div class="ticketBox moveable container kanban-to-do-container" id="ticket_<?php echo$row["id"];?>">
 
                                         <div class="row">
 
@@ -252,24 +231,40 @@
                                                     <div class="inlineDropDownContainer" style="float:right;">
 
                                                         <a href="javascript:void(0);" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                            <i class="fa fa-ellipsis-v" style="transform: rotate(90deg); margin-bottom:10px;" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li class="nav-header"><?php echo $this->__("subtitles.todo"); ?></li>
                                                             <li><a href="<?=BASE_URL ?>/tickets/showTicket/<?php echo $row["id"]; ?>"><i class="fa fa-edit"></i> <?php echo $this->__("links.edit_todo"); ?></a></li>
-                                                            <li><a href="<?=BASE_URL ?>/tickets/delTicket/<?php echo $row["id"]; ?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete_todo"); ?></a></li>
+                                                            <li><a href="<?=BASE_URL ?>/tickets/delTicket/<?php echo $row["id"]; ?>" class="delete delete-to-do-btn" style="color:black;"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete_todo"); ?></a></li>
                                                             <li class="nav-header border"><?php echo $this->__("subtitles.track_time"); ?></li>
                                                             <li id="timerContainer-<?php echo $row['id'];?>" class="timerContainer">
-                                                                <a class="punchIn" href="javascript:void(0);" data-value="<?php echo $row["id"]; ?>" <?php if($clockedIn !== false) { echo"style='display:none;'"; }?>><span class="iconfa-time"></span> <?php echo $this->__("links.start_work"); ?></a>
-                                                                <a class="punchOut" href="javascript:void(0);" data-value="<?php echo $row["id"]; ?>" <?php if($clockedIn === false || $clockedIn["id"] != $row["id"]) { echo"style='display:none;'"; }?>><span class="iconfa-stop"></span> <?php if(is_array($clockedIn) == true) { echo sprintf($this->__("links.stop_work_started_at"), date($this->__("language.timeformat"), $clockedIn["since"])); }else{ echo sprintf($this->__("links.stop_work_started_at"), date($this->__("language.timeformat"), time())); }?></a>
-                                                                <span class='working' <?php if($clockedIn === false || $clockedIn["id"] === $row["id"]) { echo"style='display:none;'"; }?>><?php echo $this->__("text.timer_set_other_todo"); ?></span>
+                                                                <div class="row text-center">
+                                                                <span class="span6">
+                                                                <?php if ($login::userIsAtLeast("developer")) {
+
+                                                                if($this->get('onTheClock') !== false){
+                                                                // echo "<li class='timerHeadMenu' id='timerHeadMenu'";
+                                                                // echo"><a href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown'>
+                                                                //         "
+                                                                        echo sprintf($this->get('onTheClock')['totalTime'], substr($this->escape($this->get('onTheClock')), 0, 10));
+
+                                                                }}?>
+
+
+
+                                                                </span>
+                                                                <a class="punchIn btn btn-default" href="javascript:void(0);" data-value="<?php echo $row["id"]; ?>" <?php if($clockedIn !== false) { echo"style='display:none;'"; }?>><span class="iconfa-time"></span> <?php echo $this->__("links.start_work"); ?></a>
+                                                                <a class="punchOut btn btn-default" href="javascript:void(0);" data-value="<?php echo $row["id"]; ?>" <?php if($clockedIn === false || $clockedIn["id"] != $row["id"]) { echo"style='display:none;'"; }?>><span class="iconfa-stop"></span> <?php if(is_array($clockedIn) == true) { echo sprintf($this->__("links.stop_work_started_at"), date($this->__("language.timeformat"), $clockedIn["since"])); }else{ echo sprintf($this->__("links.stop_work_started_at"), date($this->__("language.timeformat"), time())); }?></a>
+                                                                <span class='working span12' <?php if($clockedIn === false || $clockedIn["id"] === $row["id"]) { echo"style='display:none;'"; }?>><?php echo $this->__("text.timer_set_other_todo"); ?></span>
+                                                                </div>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 <?php } ?>
-                                                <small><i class="fa <?php echo $todoTypeIcons[strtolower($row['type'])]; ?>"></i> <?php echo $this->__("label.".strtolower($row['type'])); ?></small>
+                                                <!-- <small><i class="fa <?php echo $todoTypeIcons[strtolower($row['type'])]; ?>"></i> <?php echo $this->__("label.".strtolower($row['type'])); ?></small> -->
 
-                                                <h4><a href="<?=BASE_URL ?>/tickets/showTicket/<?php echo $row["id"];?>"><?php $this->e($row["headline"]);?></a></h4>
+                                                <h6><a href="<?=BASE_URL ?>/tickets/showTicket/<?php echo $row["id"];?>" style="color: black;"><?php $this->e($row["headline"]);?></a></h6>
                                                 <p class="description"><?php echo substr(strip_tags($row["description"]), 0, 200);?><?php if(strlen($row["description"]) >= 200) echo" (...)";?></p>
 
 
@@ -313,8 +308,8 @@
 
 										<div class="timerContainer" id="timerContainer-<?php echo $row["id"]; ?>" >
 
-                                            <div class="dropdown ticketDropdown milestoneDropdown colorized show firstDropdown" >
-                                                <a style="background-color:<?=$this->escape($row['milestoneColor'])?>" class="dropdown-toggle f-left  label-default milestone" href="javascript:void(0);" role="button" id="milestoneDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="dropdown ticketDropdown milestoneDropdown colorized show firstDropdown">
+                                                <a style="background-color:<?=$this->escape($row['milestoneColor'])?>; min-width:90px;" class="dropdown-toggle f-left  label-default milestone to-do-kanban-m-selector" href="javascript:void(0);" role="button" id="milestoneDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <span class="text"><?php
                                                                     if($row['dependingTicketId'] != "" && $row['dependingTicketId'] != 0){
                                                                         $this->e($row['milestoneHeadline']);
@@ -322,7 +317,7 @@
                                                                         echo $this->__("label.no_milestone");
                                                                     }?>
                                                                 </span>
-                                                    &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                                    &nbsp;<i class="fa fa-caret-down" style="padding-top: 5px;" aria-hidden="true"></i>
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="milestoneDropdownMenuLink<?=$row['id']?>">
                                                     <li class="nav-header border"><?=$this->__("dropdown.choose_milestone")?></li>
@@ -337,7 +332,7 @@
                                             </div>
 
                                             <div class="dropdown ticketDropdown effortDropdown show">
-                                                <a class="dropdown-toggle f-left  label-default effort" href="javascript:void(0);" role="button" id="effortDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <a class="dropdown-toggle f-left  label-default effort"style="background: #83c1d8;" href="javascript:void(0);" role="button" id="effortDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <span class="text"><?php
                                                                     if($row['storypoints'] != '' && $row['storypoints'] > 0) {
                                                                         echo $efforts[$row['storypoints']];
@@ -352,27 +347,6 @@
                                                     <?php foreach($efforts as $effortKey => $effortValue){
                                                         echo"<li class='dropdown-item'>
                                                                             <a href='javascript:void(0);' data-value='".$row['id']."_".$effortKey."' id='ticketEffortChange".$row['id'].$effortKey."'>".$effortValue."</a>";
-                                                        echo"</li>";
-                                                    }?>
-                                                </ul>
-                                            </div>
-
-                                            <div class="dropdown ticketDropdown priorityDropdown show">
-                                                <a class="dropdown-toggle f-left  label-default priority" href="javascript:void(0);" role="button" id="priorityDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <span class="text"><?php
-                                                                    if($row['priority'] != '' && $row['priority'] > 0) {
-                                                                        echo $priorities[$row['priority']];
-                                                                    }else{
-                                                                        echo $this->__("label.priority_unkown");
-                                                                    }?>
-                                                                </span>
-                                                    &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="priorityDropdownMenuLink<?=$row['id']?>">
-                                                    <li class="nav-header border"><?=$this->__("dropdown.select_priority")?></li>
-                                                    <?php foreach($priorities as $priorityKey => $priorityValue){
-                                                        echo"<li class='dropdown-item'>
-                                                                            <a href='javascript:void(0);' data-value='".$row['id']."_".$priorityKey."' id='ticketPriorityChange".$row['id'].$priorityKey."'>".$priorityValue."</a>";
                                                         echo"</li>";
                                                     }?>
                                                 </ul>
@@ -432,7 +406,6 @@
     leantime.ticketsController.initUserDropdown();
     leantime.ticketsController.initMilestoneDropdown();
     leantime.ticketsController.initEffortDropdown();
-    leantime.ticketsController.initPriorityDropdown();
     leantime.ticketsController.initUserSelectBox();
     leantime.ticketsController.initStatusSelectBox();
 

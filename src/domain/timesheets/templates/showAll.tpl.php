@@ -58,9 +58,6 @@ $helper = $this->get('helper');
 </script>
 
 <div class="pageheader">
-
-
-    <div class="pageicon"><span class="iconfa-time"></span></div>
             <div class="pagetitle">
                 <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
                 <h1><?php echo $this->__("headline.project_timesheets") ?></h1>
@@ -74,26 +71,33 @@ $helper = $this->get('helper');
 
 <form action="<?=BASE_URL ?>/timesheets/showAll" method="post" id="form" name="form">
 
-    <div class="pull-right">
-
+    <div class="timesheet-filter-btns">
+	<div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.new_with_icon") ?> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?=BASE_URL ?>/tickets/newTicket"> <?=$this->__("links.add_todo") ?></a></li>
+                            <li><a href="<?=BASE_URL ?>/tickets/editMilestone" class="milestoneModal"><?=$this->__("links.add_milestone") ?></a></li>
+                            <li><a href="<?=BASE_URL ?>/sprints/editSprint" class="sprintModal"><?=$this->__("links.add_sprint") ?></a></li>
+                        </ul>
+                    </div>
         <div id="tableButtons" style="display:inline-block"></div>
         <a onclick="jQuery('.headtitle').toggle();" class="btn btn-default "><?=$this->__("links.filter") ?></a>
     </div>
     <div class="clearfix"></div>
     <div class="headtitle" style="margin:0px; background: #eee; <?php if(isset($_POST['filterSubmit'])===false){ echo"display:none;";} ?>">
 
-	<table cellpadding="10" cellspacing="0" width="90%" style=" border: 1px solid #ccc; margin-top:0px;" class="table dataTable filterTable">
+	<table cellpadding="10" cellspacing="0" width="90%" style=" border: 1px solid #ccc; margin-top:0px;" class="table dataTable filterTable timesheet-filter-box">
 
 		<tr>
 			<td><label for="dateFrom"><?php echo $this->__('label.date_from'); ?></label>
-                <input type="text" id="dateFrom" class="dateFrom"  name="dateFrom"
-				value="<?php echo $this->getFormattedDateString($this->get('dateFrom')); ?>" size="7" style="margin-bottom:10px"/></td>
+                <input type="text" id="dateFrom" class="dateFrom dateFrom-width"  name="dateFrom"
+				value="<?php echo $this->getFormattedDateString($this->get('dateFrom')); ?>" size="7" style="margin-bottom:5px"/></td>
 			<td><label for="dateTo"><?php echo $this->__('label.date_to'); ?></label>
-                <input type="text" id="dateTo" class="dateTo" name="dateTo"
-				value="<?php echo $this->getFormattedDateString($this->get('dateTo')); ?>" size="7" style="margin-bottom:10px" /></td>
+                <input type="text" id="dateTo" class="dateTo dateTo-width" name="dateTo"
+				value="<?php echo $this->getFormattedDateString($this->get('dateTo')); ?>" size="7" style="margin-bottom:5px" /></td>
 			<td>
 			<label for="userId"><?php echo $this->__("label.employee"); ?></label>
-			<select name="userId" id="userId" onchange="submit();">
+			<select name="userId" style="margin-bottom: 5px;" id="userId" class="userId-width" onchange="submit();">
 				<option value="all"><?php echo $this->__("label.all_employees"); ?></option>
 
 				<?php foreach($this->get('employees') as $row) {
@@ -106,7 +110,7 @@ $helper = $this->get('helper');
             </td>
             <td>
 			<label for="kind"><?php echo $this->__("label.type")?></label>
-			<select id="kind" name="kind" onchange="submit();">
+			<select id="kind" style="margin-bottom: 5px;" class="kind-width" name="kind" onchange="submit();">
 				<option value="all"><?php echo $this->__("label.all_types"); ?></option>
 				<?php foreach($this->get('kind') as $key => $row){
 					echo'<option value="'.$key.'"';
@@ -119,14 +123,14 @@ $helper = $this->get('helper');
 			</select> </td>
 			<td>
 
-			<input type="checkbox" value="on" name="invEmpl" id="invEmpl" onclick="submit();"
+			<input type="checkbox" style="margin-right: 10px;" value="on" name="invEmpl" id="invEmpl" onclick="submit();"
 				<?php
 				if($this->get('invEmpl') == '1') echo ' checked="checked"';
 				?>
 			/><label for="invEmpl"><?php echo $this->__("label.invoiced"); ?></label></td>
             <td>
 
-			<input type="checkbox" value="on" name="invComp" id="invComp" onclick="submit();"
+			<input type="checkbox" style="margin-right: 10px;" value="on" name="invComp" id="invComp" onclick="submit();"
 				<?php
 				if($this->get('invComp') == '1') echo ' checked="checked"';
 				?>
@@ -134,7 +138,7 @@ $helper = $this->get('helper');
 			</td>
 			<td>
                 <input type="hidden" name='filterSubmit' value="1"/>
-                <input type="submit" value="<?php echo $this->__('buttons.search')?>" class="reload" />
+                <!-- <input type="submit" value="<?php echo $this->__('buttons.search')?>" class="reload" /> -->
 			</td>
 		</tr>
 
@@ -221,7 +225,7 @@ $helper = $this->get('helper');
 		</tr>
 		<?php } ?>
 	</tbody>
-	<tfoot>
+	<!-- <tfoot>
 		<tr>
 			<td colspan="2"><strong><?php echo $this->__("label.total_hours")?></strong></td>
 			<td colspan="7"><strong><?php echo $sum; ?></strong></td>
@@ -241,7 +245,7 @@ $helper = $this->get('helper');
                 <?php } ?>
             </td>
 		</tr>
-	</tfoot>
+	</tfoot> -->
 </table>
 
 </form>

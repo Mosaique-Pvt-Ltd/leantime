@@ -19,14 +19,16 @@
             <div class="form-group">
                 <form action="" method="post">
                     <a href="javascript:void(0)" class="dropdown-toggle bigProjectSelector" data-toggle="dropdown">
-                        <?php $this->e($_SESSION['currentProjectName']); ?>&nbsp;<i class="fa fa-caret-down"></i>
+                        <?php $this->e($_SESSION['currentProjectName']); ?>&nbsp;<i class="fas fa-chevron-right"></i>
                     </a>
 
                     <ul class="dropdown-menu projectselector">
                         <li class="intro">
-                            <span class="sub"><?=$this->__("menu.current_project") ?></span><br />
-                            <span class="title"><?php $this->e($_SESSION['currentProjectName']); ?></span>
+                            <!-- <span class="sub"><?=$this->__("menu.current_project") ?></span><br />
+                            <span class="title"><?php $this->e($_SESSION['currentProjectName']); ?></span> -->
+                            <h4><strong>projects</strong></h4>
                         </li>
+                        
 
                         <?php
                         $lastClient = "";
@@ -36,10 +38,10 @@
 
                                 if ($lastClient != $projectRow['clientName']) {
                                     $lastClient = $projectRow['clientName'];
-                                    echo "<li class='nav-header border openToggle' onclick='leantime.menuController.toggleClientList(".$projectRow['clientId'].", this)'>" . $this->escape($projectRow['clientName']) . " <i class=\"fa fa-caret-down\"></i></li>";
+                                    // echo "<li class='nav-header border openToggle' onclick='leantime.menuController.toggleClientList(".$projectRow['clientId'].", this)'>" . $this->escape($projectRow['clientName']) . " <i class=\"fa fa-caret-down\"></i></li>";
                                 }
-                                echo "<li class='client_".$projectRow['clientId']."";
-                                    if ($this->get('currentProject') == $projectRow["id"]) { echo " active "; }
+                                echo "<li id='project-selector-project' class='client_".$projectRow['clientId']."";
+                                    if ($this->get('currentProject') == $projectRow["id"]) { echo " active"; }
                                 echo"'><a href='".BASE_URL."/projects/changeCurrentProject/" . $projectRow["id"] . "'>" . $this->escape($projectRow["name"]) . "</a></li>";
                             }
                         }else{
@@ -47,14 +49,10 @@
                         }
                         ?>
                         <?php if ($login::userIsAtLeast("clientManager")) { ?>
-                            <li class='nav-header border'></li>
-
-                            <?php if ($login::userIsAtLeast("admin")) { ?>
-                            <li><a href="<?=BASE_URL ?>/projects/newProject/"><?=$this->__("menu.create_project") ?></a></li>
-                            <?php } ?>
-
-                            <li><a href="<?=BASE_URL ?>/projects/showAll"><?=$this->__("menu.view_all_projects") ?></a></li>
-                            <li><a href="<?=BASE_URL ?>/clients/showAll"><?=$this->__("menu.view_all_clients") ?></a></li>
+                            <li class='nav-header border' style="background: #f4f4f4;"></li>
+                            <li style="text-align: center;padding-left:5px; padding-right:5px; background:#f4f4f4;"><a href="<?=BASE_URL ?>/projects/newProject/" class="btn btn-primary create-new-popup-btn col-12" style="color: #fff;margin-left:0px;"><?=$this->__("menu.create_project") ?></a></li>
+                            <li style="background: #f4f4f4;"><a href="<?=BASE_URL ?>/projects/showAll"><?=$this->__("menu.view_all_projects") ?></a></li>
+                            <li style="background: #f4f4f4; border-radius: 0px 0px 10px 10px; padding-bottom:10px;"><a href="<?=BASE_URL ?>/clients/showAll"><?=$this->__("menu.view_all_clients") ?></a></li>
                         <?php } ?>
                     </ul>
                 </form>

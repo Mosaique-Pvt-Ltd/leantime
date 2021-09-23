@@ -8,7 +8,6 @@ $helper = $this->get('helper');
 <div class="pageheader">
 
 
-    <div class="pageicon"><span class="iconfa-time"></span></div>
     <div class="pagetitle">
         <h5><?php echo $this->__('headline.overview'); ?></h5>
         <h1><?php echo $this->__("headline.my_timesheets") ?></h1>
@@ -24,9 +23,10 @@ $helper = $this->get('helper');
 
 
         <form action="<?=BASE_URL ?>/timesheets/showMyList" method="post" id="form" name="form">
+
             <div class="pull-right">
                 <div class="btn-group viewDropDown">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.list_view") ?> <?=$this->__("links.view") ?></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("links.list_view_title") ?> <?=$this->__("links.view") ?></button>
                     <ul class="dropdown-menu">
                         <li><a href="<?=BASE_URL?>/timesheets/showMy" ><?=$this->__("links.week_view") ?></a></li>
                         <li><a href="<?=BASE_URL?>/timesheets/showMyList" class="active"><?=$this->__("links.list_view") ?></a></li>
@@ -34,26 +34,26 @@ $helper = $this->get('helper');
                 </div>
             </div>
 
-            <div class="pull-right" style="margin-right:3px;">
-                <div id="tableButtons" style="display:inline-block"></div>
-                <a onclick="jQuery('.headtitle').toggle();" class="btn btn-default "><?=$this->__("links.filter") ?></a>
+            <div class="pull-left" style="margin-right:3px;">
+            <a onclick="jQuery('.headtitle').toggle();" class="btn btn-default "><?=$this->__("links.filter") ?></a>
+            <div id="tableButtons" style="display:inline-block"></div>
+                
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="headtitle filterBar " style="margin:0px; background: #eee;">
+            <div class="headtitle filterBar" style="margin:0px; background: #eee;">
 
-        
                 <div class="filterBoxLeft">
-                    <label for="dateFrom"><?php echo $this->__('label.date_from'); ?> <?php echo $this->__('label.date_to'); ?></label>
+                    <label for="dateFrom" class="filter-label-text"><?php echo $this->__('label.date_from'); ?> <?php echo $this->__('label.date_to'); ?></label>
                     <input type="text" id="dateFrom" class="dateFrom"  name="dateFrom"
                            value="<?php echo $this->getFormattedDateString($this->get('dateFrom')); ?>" style="margin-bottom:10px; width:90px; float:left; margin-right:10px"/>
                     <input type="text" id="dateTo" class="dateTo" name="dateTo"
                            value="<?php echo $this->getFormattedDateString($this->get('dateTo')); ?>" style="margin-bottom:10px; width:90px" />
                 </div>
                 <div class="filterBoxLeft">
-                    <label for="kind"><?php echo $this->__("label.type")?></label>
-                    <select id="kind" name="kind" onchange="submit();">
+                    <label for="kind" class="filter-label-text" style="padding-left: 20px;"><?php echo $this->__("label.type")?></label>
+                    <select id="kind" name="kind" style="margin-top: 3px;" onchange="submit();">
                         <option value="all"><?php echo $this->__("label.all_types"); ?></option>
                         <?php foreach($this->get('kind') as $key => $row){
                             echo'<option value="'.$key.'"';
@@ -65,13 +65,12 @@ $helper = $this->get('helper');
 
                     </select>
                 </div>
-                <div class="filterBoxLeft">
+                <div class="filterBoxLeft" style="margin-top: 3px;">
                     <label>&nbsp;</label>
                     <input type="submit" value="<?php echo $this->__('buttons.search')?>" class="reload" />
                 </div>
                 <div class="clearall"></div>
             </div>
-
 
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered display" id="allTimesheetsTable">
                 <colgroup>
@@ -115,11 +114,7 @@ $helper = $this->get('helper');
                 foreach($this->get('allTimesheets') as $row) {
                     $sum = $sum + $row['hours'];?>
                     <tr>
-                        <?php if($login::userIsAtLeast("clientManager")): ?>
-                            <td data-order="<?=$this->e($row['id']); ?>"> <a href="<?=BASE_URL?>/timesheets/editTime/<?=$row['id']?>" class="editTimeModal">#<?=$row['id']." - ".$this->__('label.edit'); ?> </a></td>
-                        <?php else: ?>
-                            <td data-order="<?=$this->e($row['id']); ?>"><?php echo $row['id']; ?></td>
-                        <?php endif; ?>
+                        <td data-order="<?=$this->e($row['id']); ?>"> <a href="<?=BASE_URL?>/timesheets/editTime/<?=$row['id']?>" style="color: #000;" class="editTimeModal">#<?=$row['id']." - ".$this->__('label.edit'); ?> </a></td>
                         <td data-order="<?php echo $this->getFormattedDateString($row['workDate']); ?>">
                             <?php echo $this->getFormattedDateString($row['workDate']); ?>
                         </td>

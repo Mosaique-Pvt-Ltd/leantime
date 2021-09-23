@@ -19,8 +19,7 @@ if (isset($canvasItem['id']) && $canvasItem['id'] != '') {
 
 <div class="showDialogOnLoad" style="display:none;">
 
-    <h4 class="widgettitle title-light"><i
-                class="iconfa iconfa-columns"></i>
+    <h4 class="widgettitle title-light">
         <?php
         if($canvasItem['description'] == "") {
                 echo $this->__("headlines.ideas");
@@ -51,30 +50,34 @@ if (isset($canvasItem['id']) && $canvasItem['id'] != '') {
         <input type="hidden" name="changeItem" value="1"/>
 
         <?php if ($id != '') { ?>
-            <a href="<?=BASE_URL ?>/ideas/delCanvasItem/<?php echo $id; ?>" class="ideaModal delete right"><i
+            <a href="<?=BASE_URL ?>/ideas/delCanvasItem/<?php echo $id; ?>" class="ideaModal delete left"><i
                         class="fa fa-trash"></i> <?php echo $this->__("links.delete") ?></a>
         <?php } ?>
-        <input type="submit" value="<?php echo $this->__("buttons.save")?>" id="primaryCanvasSubmitButton"/>
-        <input type="submit" value="<?php echo $this->__("buttons.save_and_close")?>" id="saveAndClose"
+        <input type="submit" class="pull-right" style="background: #1374e9;" value="<?php echo $this->__("buttons.save")?>" id="primaryCanvasSubmitButton"/>
+        <input type="submit" class="pull-right btn-default" style="height: 30px; margin-right:5px;" value="<?php echo $this->__("buttons.save_and_close")?>" id="saveAndClose"
                onclick="leantime.ideasController.setCloseModal();"/>
 
         <?php if ($id !== '') { ?>
             <br/><br/>
-            <h4 class="widgettitle title-light"><span
-                        class="fas fa-map"></span> <?php echo $this->__("headlines.attached_milestone") ?></h4>
+            <h4 class="widgettitle title-light"><?php echo $this->__("headlines.attached_milestone") ?></h4>
 
 
             <ul class="sortableTicketList" style="width:99%">
                 <?php if ($canvasItem['milestoneId'] == '') { ?>
                     <li class="ui-state-default center" id="milestone_0">
-                        <h4><?php echo $this->__("headlines.no_milestone_attached") ?></h4>
-                        <?php echo $this->__("text.use_milestone_to_track_idea") ?><br/>
-                        <div class="row" id="milestoneSelectors">
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                            <p><?php echo $this->__("headlines.no_milestone_attached") ?></p>
+                            <?php echo $this->__("text.use_milestone_to_track_idea") ?><br/>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="row" id="milestoneSelectors">
                             <div class="col-md-12">
-                                <a href="javascript:void(0);"
-                                   onclick="leantime.ideasController.toggleMilestoneSelectors('new');"><?php echo $this->__("links.create_attach_milestone") ?></a>
-                                | <a href="javascript:void(0);"
-                                     onclick="leantime.ideasController.toggleMilestoneSelectors('existing');"><?php echo $this->__("links.attach_existing_milestone") ?></a>
+                                <a href="javascript:void(0);" class="btn btn-block btn-primary milestone-create-edit-btn" style="background: #1374e9;"
+                                   onclick="leantime.ideasController.toggleMilestoneSelectors('new');"><i class="fas fa-plus"></i> <?php echo $this->__("links.create_attach_milestone") ?></a>
+                                   <br> 
+                                 <a href="javascript:void(0);" class="btn btn-block btn-default milestone-create-edit-btn"
+                                     onclick="leantime.ideasController.toggleMilestoneSelectors('existing');"><i class="fas fa-paperclip"></i> <?php echo $this->__("links.attach_existing_milestone") ?></a>
                             </div>
                         </div>
                         <div class="row" id="newMilestone" style="display:none;">
@@ -116,6 +119,9 @@ if (isset($canvasItem['id']) && $canvasItem['id'] != '') {
                                 </a>
                             </div>
                         </div>
+                            </div>
+                        </div> 
+                        
                     </li>
                     <?php
 
@@ -138,9 +144,9 @@ if (isset($canvasItem['id']) && $canvasItem['id'] != '') {
                                 <div class="col-md-8">
                                     <strong><a href="<?=BASE_URL ?>/tickets/showKanban&milestone=<?php echo $canvasItem['milestoneId']; ?>"><?php $this->e($canvasItem['milestoneHeadline']); ?></a></strong>
                                 </div>
-                                <div class="col-md-4 align-right">
+                                <div class="col-md-4 pull-left">
                                     <a href="<?=BASE_URL ?>/ideas/ideaDialog/<?php echo $id; ?>&removeMilestone=<?php echo $canvasItem['milestoneId']; ?>"
-                                       class="ideaModal delete"><i class="fa fa-close"></i> <?php echo $this->__("links.remove")?></a>
+                                       class="ideaModal delete pull-right"><i class="fa fa-close"></i> <?php echo $this->__("links.remove")?></a>
                                 </div>
                             </div>
                             <div class="row">

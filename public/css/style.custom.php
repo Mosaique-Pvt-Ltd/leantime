@@ -58,7 +58,8 @@ input.secretInput,
 .maincontentinner .ticketDropdown.noBg >a:link,
 .viewDropDown .dropdown-menu li a.active,
 .paginate_button.current:hover
-{ color: <?php echo $color; ?>; }
+<!-- { color: <?php echo $color; ?>; } -->
+{color: blue;}
 
 
 input[type='submit'],
@@ -69,7 +70,7 @@ button,
 .dropdown-menu span.radio:hover,
 .paginate_button.current,
 .dropdown-menu > li > a.active
-{ background-color:  <?php echo $color; ?>;  }
+{ background-color:  <?php echo $color; ?> }
 
 input[type='submit']:hover, 
 button:hover {

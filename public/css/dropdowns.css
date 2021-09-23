@@ -8,7 +8,7 @@
     border:0px;
     -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); */
 }
 
 .dropdown-menu > li > a {
@@ -40,8 +40,9 @@ body .maincontentinner .viewDropDown .dropdown-menu li a.active,
     display:inline-block;
 }
 
-.ticketDropdown ul {
-    top: 22px;
+.ticketDropdown ul, #allTicketsTable > tbody > tr > td > div > ul {
+    top: 30px;
+    left: 0px;
 }
 
 
@@ -113,22 +114,21 @@ body .maincontentinner .viewDropDown .dropdown-menu li a.active,
 }
 
 .maincontentinner .ticketDropdown a.label-warning {
-    background:#f89406;
+    background: #fdab3f;
 }
 
 .maincontentinner .ticketDropdown a.label-info {
-    background:#2d6987;
+    background: #1374e9;
 }
 
 .maincontentinner .ticketDropdown a.label-important,
 .maincontentinner .ticketDropdown a.label-danger {
-    background:#b94a48;
+    background: #ee2750;
 }
 
 .maincontentinner .ticketDropdown a.label-success {
-    background:#468847;
+    background:#19c861;
 }
-
 .maincontentinner .ticketDropdown a.label-default {
 
 }

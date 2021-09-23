@@ -3,7 +3,6 @@
 <head>
     <?php echo $frontController->includeAction('general.header'); ?>
 
-
     <link rel="stylesheet" href="<?=BASE_URL?>/css/main.css?v=<?php echo $settings->appVersion; ?>"/>
     <link rel="stylesheet" href="<?=BASE_URL?>/css/style.default.css?v=<?php echo $settings->appVersion; ?>" type="text/css"/>
     <link rel="stylesheet" href="<?=BASE_URL?>/css/style.custom.php?color=<?php echo htmlentities($_SESSION["companysettings.mainColor"]) ?>&v=<?php echo $settings->appVersion; ?>" type="text/css"/>
@@ -17,7 +16,6 @@
     <!-- app -->
     <script src="<?=BASE_URL?>/js/compiled-app.min.js?v=<?php echo $settings->appVersion; ?>"></script>
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
@@ -31,7 +29,7 @@
         </div>
         <div class="headerinner" style="<?php if(isset($_SESSION['menuState']) && $_SESSION['menuState'] == 'closed') echo 'margin-left:0px;'; ?>">
             <div class="userloggedinfo">
-                <?php echo $frontController->includeAction('general.loginInfo'); ?>
+                <?php echo $frontController->includeAction('general.loginInfo'); ?>    
             </div>
 
             <?php echo $frontController->includeAction('general.headMenu'); ?>
@@ -55,7 +53,7 @@
         <!--###MAINCONTENT###-->
 
         <div class='footer'>
-            <!-- <?php echo $frontController->includeAction('general.footer'); ?> -->
+            <?php echo $frontController->includeAction('general.footer'); ?>
         </div>
 
     </div><!--rightpanel-->

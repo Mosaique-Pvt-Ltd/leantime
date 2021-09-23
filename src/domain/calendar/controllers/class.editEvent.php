@@ -34,8 +34,6 @@ namespace leantime\domain\controllers {
                     'description' => $row['description'],
                     'dateFrom' => $row['dateFrom'],
                     'dateTo' => $row['dateTo'],
-                    'emailNote' => $row['emailNote'],
-                    'emailNotification' => $row['emailNotification'],
                     'allDay' => $row['allDay']
                 );
 
@@ -52,17 +50,6 @@ namespace leantime\domain\controllers {
 
                     }
 
-                    if (isset($_POST['emailNotification']) === true) {
-
-                        $emailNotification = 'true';
-
-                    } else {
-
-                        $emailNotification = 'false';
-
-                    }
-
-
                     if (isset($_POST['dateFrom']) === true && isset($_POST['timeFrom']) === true) {
                         $dateFrom = date('Y-m-d H:i:01', strtotime($_POST['dateFrom']." ".$_POST['timeFrom']));
                     }
@@ -76,8 +63,6 @@ namespace leantime\domain\controllers {
                         'description' => ($_POST['description']),
                         'dateFrom' => $dateFrom,
                         'dateTo' => $dateTo,
-                        'emailNote' => $emailNote,
-                        'emailNotification' => $emailNotification,
                         'allDay' => $allDay
                     );
 

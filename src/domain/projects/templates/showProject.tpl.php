@@ -4,15 +4,10 @@
     $bookedHours = $this->get('bookedHours');
     $helper = $this->get('helper');
     $state = $this->get('state');
-    $urlData= $this->get('urlData');
 ?>
 
 <div class="pageheader">
-    <div class="pull-right padding-top">
-        <a href="<?=BASE_URL ?>/projects/showAll" class="backBtn"><i class="far fa-arrow-alt-circle-left"></i> <?php echo $this->__('links.go_back') ?></a>
-    </div>
-
-    <div class="pageicon"><span class="fa fa-suitcase"></span></div>
+       
     <div class="pagetitle">
         <h5><?php echo $this->__('label.administration') ?></h5>
         <h1><?php echo sprintf($this->__('headline.project'),$this->escape($project['name'])); ?>
@@ -28,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <a href="<?=BASE_URL?>/projects/duplicateProject/<?=$project['id']?>" class="duplicateProjectModal btn btn-default"><?=$this->__("links.duplicate_project") ?></a>
+                            <a href="<?=BASE_URL?>/projects/duplicateProject/<?=$project['id']?>" class="duplicateProjectModal btn btn-default"><?=$this->__("links.duplicate_project_title") ?></a>
 
                         </div>
                     </div>
@@ -37,11 +32,10 @@
                 <div class="tabbedwidget tab-primary projectTabs">
 
                 <ul>
-                    <li><a href="#projectdetails"><?php echo $this->__('tabs.projectdetails'); ?></a></li>
-                    <li><a href="#integrations"><?php echo $this->__('tabs.Integrations'); ?></a></li>
-                    <li><a href="#files"><?php echo sprintf($this->__('tabs.files_with_count'), $this->get('numFiles')); ?></a></li>
-                    <li><a href="#comment"><?php echo sprintf($this->__('tabs.discussion_with_count'), $this->get('numComments')); ?></a></li>
-                    <li><a href="#url"><?php echo $this->__('tabs.url'); ?></a></li>
+                    <li><a href="#projectdetails"><i class="far fa-list-alt"></i> <?php echo $this->__('tabs.projectdetails'); ?></a></li>
+                    <li><a href="#integrations"><i class="fas fa-cog"></i> <?php echo $this->__('tabs.Integrations'); ?></a></li>
+                    <li><a href="#files"><i class="far fa-file"></i> <?php echo sprintf($this->__('tabs.files_with_count'), $this->get('numFiles')); ?></a></li>
+                    <li><a href="#comment"><i class="far fa-comments"></i> <?php echo sprintf($this->__('tabs.discussion_with_count'), $this->get('numComments')); ?></a></li>
                 </ul>
 
                 <div id="projectdetails">
@@ -64,52 +58,40 @@
                                             <span class="btn btn-file">
                                                 <span class="fileupload-new"><?=$this->__('label.select_file'); ?></span>
                                                 <span class='fileupload-exists'><?=$this->__('label.change'); ?></span>
-                                                <input type='file' name='file' />
+                                                <input type='file' name='file'/>
                                             </span>
                                             <a href='#' class='btn fileupload-exists' data-dismiss='fileupload'><?=$this->__('buttons.remove'); ?></a>
                                         </div>
                                       </div>
                                    </div>
 
-                                   <input type="submit" name="upload" class="button" value="<?=$this->__('buttons.upload'); ?>" />
+                                   <input type="submit" style="background: #1374e9;" name="upload" class="button" value="<?=$this->__('buttons.upload'); ?>" />
 
                                 </form>
                     </div>
 
 
                     <div class="mediamgr_content">
-
+                        <h6>Uploaded files</h6>
                         <ul id='medialist' class='listfile'>
-                                <?php foreach($this->get('files') as $file): ?>
-                                                <li class="<?php echo $file['moduleId'] ?>">
-                                                    <div class="inlineDropDownContainer" style="float:right;">
+                            <?php foreach($this->get('files') as $file): ?>
+                            <div class="row">
+                                <li class="span6" style="background:#f8f8f8; border:1px solid #e6e9f0;padding:20px; margin-left:15px">
+                                    <a href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>" class="pull-left">
+                                    <?php if (in_array(strtolower($file['extension']), $this->get('imgExtensions'))) :  ?>
+                                    <?php endif; ?>
+                                        <span class="filename" style="color:#000;"><?php echo $file['realName'] ?></span>
+                                        <span class="pull-right">
+                                        <?php  if ($login::userIsAtLeast("developer")) { ?>
+                                        <a href="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>?delFile=<?php echo $file['id'] ?>" class="delete pull-right"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete"); ?></a>
+                                    <?php  } ?>
+                                    </span>
 
-                                                        <a href="javascript:void(0);" class="dropdown-toggle ticketDropDown" data-toggle="dropdown">
-                                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li class="nav-header"><?php echo $this->__("subtitles.file"); ?></li>
-                                                            <li><a href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>"><?php echo $this->__("links.download"); ?></a></li>
-
-                                                            <?php  if ($login::userIsAtLeast("developer")) { ?>
-                                                                <li><a href="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>?delFile=<?php echo $file['id'] ?>" class="delete"><i class="fa fa-trash"></i> <?php echo $this->__("links.delete"); ?></a></li>
-                                                            <?php  } ?>
-
-                                                        </ul>
-                                                    </div>
-                                                      <a class="cboxElement" href="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>">
-                                                        <?php if (in_array(strtolower($file['extension']), $this->get('imgExtensions'))) :  ?>
-                                                            <img style='max-height: 50px; max-width: 70px;' src="<?=BASE_URL ?>/download.php?module=<?php echo $file['module'] ?>&encName=<?php echo $file['encName'] ?>&ext=<?php echo $file['extension'] ?>&realName=<?php echo $file['realName'] ?>" alt="" />
-                                                            <?php else: ?>
-                                                            <img style='max-height: 50px; max-width: 70px;' src='<?=BASE_URL ?>/images/thumbs/doc.png' />
-                                                            <?php endif; ?>
-                                                        <span class="filename"><?php echo $file['realName'] ?></span>
-
-                                                      </a>
-
-                                                   </li>
+                                    </a>
+                                </li>
+                            </div>
+                            <br>
                                 <?php endforeach; ?>
-                                           <br class="clearall" />
                         </ul>
 
                     </div><!--mediamgr_content-->
@@ -129,84 +111,69 @@
 
                 </div>
 
-                <div id="url">
-
-                    <form method="post" action="<?=BASE_URL ?>/projects/addUrl" class="ticketModal">
-                    <div>
-                            <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $values['title']; ?>" />
-                            <input type="text" id="url" name="url" placeholder="URL" value="<?php echo $values['url']; ?>" />
-                            <input type="text" id="comment" name="comment" placeholder="Comment" value="<?php echo $values['comment']; ?>" />
-                            <p class="stdformbutton" style= "display:inline;">
-                                <input type="submit" name="add" id="add" value="<?php echo $this->__('buttons.add_url') ?>" class="button" />
-                            </p>
-                    </div><br>
-                         <table>
-                            <tr>
-                                <th>Title</th>
-                                <th>URL</th>
-                                <th>Comment</th>
-                            </tr> 
-
-                            <?php foreach($urlData as $data): ?>
-                                <tr>
-                                    <td><?php echo ($data['title']);?></td>
-                                    <td><?php echo ($data['url']);?></td>
-                                    <td><?php echo ($data['comment']);?></td>
-                                </tr>  
-                            <?php endforeach; ?>
-
-                        </table>
-                    </form>
-                </div>
-
                     <div id="integrations">
-                        <h4 class="widgettitle title-light"><span class="iconfa iconfa-leaf"></span>Mattermost</h4>
+
+                        
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-7">
                                 <img src="<?=BASE_URL ?>/images/mattermost-logoHorizontal.png" width="200" />
+                                <div class="">
+                                    <?=$this->__('text.mattermost_instructions'); ?>
+                                </div>
                             </div>
+                            
                             <div class="col-md-5">
-                                <?=$this->__('text.mattermost_instructions'); ?>
-                            </div>
-                            <div class="col-md-4">
                                 <strong><?=$this->__('label.webhook_url'); ?></strong><br />
-                                <form action="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>#integrations" method="post">
-                                    <input type="text" name="mattermostWebhookURL" id="mattermostWebhookURL" value="<?php echo $this->get("mattermostWebhookURL"); ?>"/>
-                                    <br />
-                                    <input type="submit" value="<?=$this->__('buttons.save'); ?>" name="mattermostSave" />
+                                    <form action="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>#integrations" method="post">
+                                    <div class="row">
+                                    <div class="col-12" id="integration-web-hook-url-container">
+                                        <input type="text" name="mattermostWebhookURL" id="mattermostWebhookURL" value="<?php echo $this->get("mattermostWebhookURL"); ?>"/>
+                                        <br />
+                                        <input type="submit" style="background:#1374e9;" value="<?=$this->__('buttons.save'); ?>" name="mattermostSave" />
+                                    </div>
+                                </div>
+                                    
                                 </form>
                             </div>
                         </div>
                         <br />
-                        <h4 class="widgettitle title-light"><span class="iconfa iconfa-leaf"></span>Slack</h4>
+                        
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-7">
                                 <img src="https://cdn.brandfolder.io/5H442O3W/as/pl546j-7le8zk-5guop3/Slack_RGB.png " width="200"/>
+                                <div class="">
+                                     <?=$this->__('text.slack_instructions'); ?>
+                                </div>
+
                             </div>
 
+                            
                             <div class="col-md-5">
-                                <?=$this->__('text.slack_instructions'); ?>
-                            </div>
-                            <div class="col-md-4">
                                 <strong><?=$this->__('label.webhook_url'); ?></strong><br />
                                 <form action="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>#integrations" method="post">
-                                    <input type="text" name="slackWebhookURL" id="slackWebhookURL" value="<?php echo $this->get("slackWebhookURL"); ?>"/>
-                                    <br />
-                                    <input type="submit" value="<?=$this->__('buttons.save'); ?>" name="slackSave" />
+                                <div class="row">
+                                    <div class="col-12" id="integration-web-hook-url-container">
+                                        <input type="text" name="slackWebhookURL" id="slackWebhookURL" value="<?php echo $this->get("slackWebhookURL"); ?>"/>
+                                        <br />
+                                        <input type="submit" style="background: #1374e9;" value="<?=$this->__('buttons.save'); ?>" name="slackSave" />
+                                    </div>
+                                </div>
+                                    
                                 </form>
                             </div>
                         </div>
-
-                        <h4 class="widgettitle title-light"><span class="iconfa iconfa-leaf"></span>Zulip</h4>
+                        <br>
+                        
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-7">
                                 <img src="<?=BASE_URL ?>/images/zulip-org-logo.png" width="200"/>
+                                <div class="">
+                                    <?=$this->__('text.zulip_instructions'); ?>
+                                </div>
                             </div>
 
+                            
                             <div class="col-md-5">
-                                <?=$this->__('text.zulip_instructions'); ?>
-                            </div>
-                            <div class="col-md-4">
 
                                 <form action="<?=BASE_URL ?>/projects/showProject/<?php echo $project['id']; ?>#integrations" method="post">
                                     <strong><?=$this->__('label.base_url'); ?></strong><br />
@@ -224,7 +191,7 @@
                                     <strong><?=$this->__('label.topic'); ?></strong><br />
                                     <input type="text" name="zulipTopic" id="zulipTopic" placeholder="" value="<?php echo $this->get("zulipHook")['zulipTopic']; ?>"/>
                                     <br />
-                                    <input type="submit" value="<?=$this->__('buttons.save'); ?>" name="zulipSave" />
+                                    <input type="submit" style="background: #1374e9;" value="<?=$this->__('buttons.save'); ?>" name="zulipSave" />
                                 </form>
                             </div>
                         </div>
@@ -232,30 +199,6 @@
                 </div>
             </div>
         </div>
-
-
-<style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th{
-        background-color: #1b75bb;
-        color: white;
-    }
-
-    td, th {
-        border: 1px solid white;
-        text-align: left;
-        padding: 8px;
-    }
-    
-    tr:nth-child(even) {
-        background-color: #ADD8E6;
-    }
-</style>
 
 <script type='text/javascript'>
 

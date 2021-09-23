@@ -6,7 +6,6 @@ $values = $this->get('values');
 <div class="pageheader">
 
 
-<div class="pageicon"><span class="fa fa-address-book"></span></div>
     <div class="pagetitle">
         <h5><?php echo $this->__('label.administration') ?></h5>
         <h1><?php echo $this->__('headline.new_client'); ?></h1>
@@ -19,90 +18,75 @@ $values = $this->get('values');
         <?php echo $this->displayNotification() ?>
 
         <div class="widget">
-           <h4 class="widgettitle"><?php echo $this->__('subtitle.details'); ?></h4>
            <div class="widgetcontent">
-
                 <form action="" method="post" class="stdform">
 
                     <div class="row row-fluid">
-                        <div class="col-md-6">
+                        <div class="col-md-8   ">
                             <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.name') ?></label>
-                                <div class="span6">
-                                    <input type="text" name="name" id="name" value="<?php $this->e($values['name']); ?>" />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.name') ?></label>
+                                    <input type="text" name="name" id="name" class="span12" value="<?php $this->e($values['name']); ?>" />
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.email') ?></label>
+                                    <input type="text" name="email" class="span12" id="email" value="<?php $this->e($values['email']); ?>" />
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.email') ?></label>
-                                <div class="span6">
-                                    <input type="text" name="email" id="email" value="<?php $this->e($values['email']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.url') ?></label>
-                                <div class="span6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.url') ?></label>
                                     <input
-                                            type="text" name="internet" id="internet"
+                                            type="text" class="span12" name="internet" id="internet"
                                             value="<?php $this->e($values['internet']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.street') ?></label>
-                                <div class="span6">
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.phone') ?></label>
                                     <input
-                                            type="text" name="street" id="street"
-                                            value="<?php $this->e($values['street']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.zip') ?></label>
-                                <div class="span6">
-                                    <input type="text"
-                                           name="zip" id="zip" value="<?php $this->e($values['zip']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.city') ?></label>
-                                <div class="span6">
-                                    <input type="text"
-                                           name="city" id="city" value="<?php $this->e($values['city']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.state') ?></label>
-                                <div class="span6">
-                                    <input
-                                            type="text" name="state" id="state"
-                                            value="<?php $this->e($values['state']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.country') ?></label>
-                                <div class="span6">
-                                    <input
-                                            type="text" name="country" id="country"
-                                            value="<?php $this->e($values['country']); ?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="span4 control-label"><?php echo $this->__('label.phone') ?></label>
-                                <div class="span6">
-                                    <input
-                                            type="text" name="phone" id="phone"
+                                            type="text" class="span12" name="phone" id="phone"
                                             value="<?php $this->e($values['phone']); ?>" />
+                                    </div>
                                 </div>
+                            </div>
+                            <hr>
+                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.street') ?></label>
+                                    <input type="text" class="span12" name="street" id="street" value="<?php $this->e($values['street']); ?>" />
+                                    </div>
+                                    <div class="col-md-3">
+                                    <label class="span12 control-label"><?php echo $this->__('label.zip') ?></label>
+                                    <input type="text" class="span12" name="zip" id="zip" value="<?php $this->e($values['zip']); ?>" />
+                                    </div>
+                                    <div class="col-md-3">
+                                    <label class="span12 control-label"><?php echo $this->__('label.city') ?></label>
+                                    <input type="text" class="span12" name="city" id="city" value="<?php $this->e($values['city']); ?>" />
+                                    </div>
+                                </div>
+                                
                             </div>
 
                             <div class="form-group">
-                                <div class="span4 control-label">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.state') ?></label>
+                                    <input type="text" class="span12" name="state" id="state" value="<?php $this->e($values['state']); ?>" />
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label class="span12 control-label"><?php echo $this->__('label.country') ?></label>
+                                    <input type="text" class="span12" name="country" id="country" value="<?php $this->e($values['country']); ?>" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group pull-right">
+                                <div class="span12 control-label">
                                     <input type="submit" name="save" id="save"
                                            value="<?php echo $this->__('buttons.save') ?>" class="btn btn-primary" />
                                 </div>

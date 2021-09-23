@@ -1,5 +1,6 @@
 # Leantime #
 
+
 Leantime is a lean open source project management system for startups and innovators written in PHP, Javascript with MySQL. [https://leantime.io](https://leantime.io)
 <br /><br />
 Features:

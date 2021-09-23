@@ -4,8 +4,6 @@ $roles = $this->get('roles');
 ?>
 
 <div class="pageheader">
-
-    <div class="pageicon"><span class="<?php echo $this->getModulePicture() ?>"></span></div>
     <div class="pagetitle">
         <h5><?php echo $this->__('label.administration') ?></h5>
         <h1><h1><?php echo $this->__('headlines.users'); ?></h1></h1>
@@ -43,20 +41,23 @@ $roles = $this->get('roles');
                     <th class='head1'><?php echo $this->__('label.client'); ?></th>
                     <th class='head1'><?php echo $this->__('label.role'); ?></th>
                     <th class='head1'><?php echo $this->__('headlines.twoFA'); ?></th>
-                    <th class='head0 no-sort'></th>
+                    <th class='head0 no-sort'>Actions</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($this->get('allUsers') as $row): ?>
                     <tr>
                         <td style="padding:6px 10px;">
-                        <?php echo $this->displayLink('users.editUser', sprintf( $this->__("text.full_name"), $this->escape($row["firstname"]), $this->escape($row["lastname"])), array('id' => $row['id'])); ?>
+                        <span class="user-list-user-name"><?php echo $this->displayLink('users.editUser', sprintf( $this->__("text.full_name"), $this->escape($row["firstname"]), $this->escape($row["lastname"])), array('id' => $row['id'])); ?></span>
                         </td>
-                        <td><?php echo $row['username']; ?></td>
+                        <td><a href="mailto:<?php echo $row['username']; ?>"><?php echo $row['username']; ?></a></td>
                         <td><?=$row['clientName']; ?></td>
                         <td><?=$this->__("label.roles.".$roles[$row['role']]); ?></td>
                         <td><?php if($row['twoFAEnabled']){ echo $this->__('label.yes'); }else{ echo $this->__('label.no'); } ?></td>
-                        <td><a href="<?=BASE_URL ?>/users/delUser/<?php echo $row['id']?>" class="delete"><i class="fa fa-trash"></i> <?=$this->__('links.delete');?></a></td>
+                        <td>
+                            <a href="<?=BASE_URL ?>/users/editUser/<?php echo $row['id']?>" style="color:#ced1d8;" class="edit"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="<?=BASE_URL ?>/users/delUser/<?php echo $row['id']?>" style="color:#ced1d8;margin-left:10px;" class="delete"><i class="fas fa-times"></i></a>
+                        </td>
                     </tr>
             <?php endforeach; ?>
             </tbody>

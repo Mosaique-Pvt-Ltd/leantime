@@ -5,7 +5,6 @@
 
 <div class="pageheader">
 
-    <div class="pageicon"><span class="fa fa-suitcase"></span></div>
     <div class="pagetitle">
         <h5><?php echo $this->__('label.administration');  $this->__("") ?></h5>
         <h1><?php echo $this->__('headline.all_projects') ?></h1>
@@ -18,9 +17,7 @@
 
         <?php echo $this->displayNotification(); ?>
 
-		<?php if ($login::userIsAtLeast("admin")) { ?>
 		<?php echo $this->displayLink('projects.newProject',"<i class='iconfa-plus'></i> ".$this->__('link.new_project'), NULL, array('class' => 'btn btn-primary btn-rounded')) ?>
-		<?php } ?>
 
 		<table class="table table-bordered" cellpadding="0" cellspacing="0" border="0" id="allProjectsTable">
 			<colgroup>
@@ -44,17 +41,27 @@
 			<tbody>
 		
 			 <?php foreach($this->get('allProjects') as $row): ?>
+				<?php
+				$status = $row['state'];
+				if($status==-1){
+					$status ='Closed';
+					$color='#c4c4c4';
+				}else{
+					$status ='Active';
+					$color='#1fc875';
+				}
+				?>
 				<tr class='gradeA'>
 					
-					<td style="padding:6px;">
+					<td class="project-name-td" style="padding:6px; border-left:3px solid <?php echo $color;?> !important">
 						<?php echo $this->displayLink('projects.changeCurrentProject',$row['name'], array('id' => $row['id'])) ?>
-					<td>
+					<td class="client-name-td">
 						<?php echo $this->displayLink('clients.showClient',$row['clientName'], array('id' => $row['clientId']), NULL, true) ?>
 					</td>
-                    <td class="center"><?php if($row['state'] == -1) echo "Closed"; else { echo "Active"; } ?></td>
-					<td class="center"><?php echo $row['numberOfTickets']; ?></td>
-					<td class="center"><?php $this->e($row['hourBudget']); ?></td>
-					<td class="center"><?php $this->e($row['dollarBudget']); ?></td>
+                    <td style="background: <?php echo $color; ?>!important; color: #fff;" class="center"><?php echo $status; ?></td>
+					<td class="center number-of-ticket-td"><?php echo $row['numberOfTickets']; ?></td>
+					<td class="center hour-budget-td"><?php $this->e($row['hourBudget']); ?></td>
+					<td class="center dollar-budget-td"><?php $this->e($row['dollarBudget']); ?></td>
 				</tr>
 			 <?php endforeach; ?>
 		

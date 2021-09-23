@@ -63,7 +63,7 @@ $size = floor((100 / $numberofColumns)* 100) / 100;
             </div>
             <div class="col-md-4">
                 <div class="pull-right">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("buttons.idea_kanban") ?> <?=$this->__("links.view") ?></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown"><?=$this->__("buttons.idea_kanban_title") ?> <?=$this->__("links.view") ?></button>
                     <ul class="dropdown-menu">
                         <li><a href="<?=BASE_URL ?>/ideas/showBoards" ><?php echo $this->__("buttons.idea_wall") ?></a></li>
                         <li><a href="<?=BASE_URL ?>/ideas/advancedBoards" class="active"><?php echo $this->__("buttons.idea_kanban") ?></a></li>

@@ -8,13 +8,17 @@
 
 <div class="pageheader">
 
-    <div class="pull-right padding-top">
-        <a href="<?php echo $_SESSION['lastPage'] ?>" class="backBtn"><i class="far fa-arrow-alt-circle-left"></i> <?=$this->__("links.go_back") ?></a>
-    </div>
+    
 
-    <div class="pageicon"><span class="<?php echo $this->getModulePicture() ?>"></span></div>
     <div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
+        <div class="row">
+            <div class="col-12">
+                <div class="back-btn">
+                    <a href="<?php echo $_SESSION['lastPage'] ?>" class="backBtn btn"><i class="fas fa-chevron-left"></i> <?=$this->__("links.go_back") ?></a>
+                </div>
+            </div>
+        </div>
         <h1><?=$this->__("headlines.edit_todo") ?></h1>
     </div>
 
@@ -28,12 +32,12 @@
         <div class="tabbedwidget tab-primary ticketTabs" style="visibility:hidden;">
 
             <ul>
-                <li><a href="#ticketdetails"><?php echo $this->__("tabs.ticketDetails") ?></a></li>
-                <li><a href="#subtasks"><?php echo $this->__('tabs.subtasks') ?> (<?php echo $this->get('numSubTasks'); ?>)</a></li>
-                <li><a href="#files"><?php echo $this->__("tabs.files") ?> (<?php echo $this->get('numFiles'); ?>)</a></li>
-                <li><a href="#comments"><?php echo $this->__("tabs.discussion") ?> (<?php echo $this->get('numComments'); ?>)</a></li>
-                <?php if ($login::userIsAtLeast("clientManager") && $_SESSION["userdata"]["role"] != "client") { ?>
-                    <li><a href="#timesheet"><?php echo $this->__("tabs.time_tracking") ?></a></li>
+                <li><a href="#ticketdetails"><i class="far fa-list-alt"></i> <?php echo $this->__("tabs.ticketDetails") ?></a></li>
+                <li><a href="#subtasks"><i class="far fa-check-square"></i> <?php echo $this->__('tabs.subtasks') ?> (<?php echo $this->get('numSubTasks'); ?>)</a></li>
+                <li><a href="#files"><i class="far fa-file"></i> <?php echo $this->__("tabs.files") ?> (<?php echo $this->get('numFiles'); ?>)</a></li>
+                <li><a href="#comments"><i class="far fa-comments"></i> <?php echo $this->__("tabs.discussion") ?> (<?php echo $this->get('numComments'); ?>)</a></li>
+                <?php if ($_SESSION["userdata"]["role"] != "client") { ?>
+                    <li><a href="#timesheet"><i class="far fa-clock"></i> <?php echo $this->__("tabs.time_tracking") ?></a></li>
                 <?php }; ?>
             </ul>
 
@@ -66,7 +70,7 @@
                 </form>
             </div>
 
-            <?php if ($login::userIsAtLeast("clientManager") && $_SESSION["userdata"]["role"] != "client") { ?>
+            <?php if ($_SESSION["userdata"]["role"] != "client") { ?>
                 <div id="timesheet">
                     <?php $this->displaySubmodule('tickets-timesheet') ?>
                 </div>

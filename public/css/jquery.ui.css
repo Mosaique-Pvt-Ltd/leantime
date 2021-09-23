@@ -38,7 +38,7 @@
 .ui-datepicker-calendar td.ui-datepicker-today a { color: #fff; background: #0866c6; text-shadow: none; }
 
 /** TABS **/
-.ui-tabs { border: 2px solid #bbb; background: #fcfcfc;  line-height: 21px; }
+.ui-tabs { border: 0px solid #bbb; background: #fcfcfc;  line-height: 21px; }
 .ui-tabs-nav { list-style: none; background: #eee; border-bottom: 1px solid #bbb; }
 .ui-tabs-nav { position: relative; height: 41px; }
 .ui-tabs-nav > li { display: inline-block; float: left; }
@@ -49,18 +49,18 @@
 .ui-tabs-nav > li a:hover { text-decoration: none; background: #fcfcfc; }
 .ui-tabs-nav > li.ui-state-active a { background: #fff; color: #333; border-bottom: 1px solid #fff; }
 .ui-tabs-hide { display: none; }
-.ui-tabs-panel { padding: 15px; background: #fff; color: #666; }
+.ui-tabs-panel {background: #fff; color: #000; }
 
 .ui-tabs-panel .dropdown-menu { margin: 0; }
 .ui-tabs-panel .dropdown-menu li { padding: 0; }
 .ui-tabs-panel .dropdown-menu li a { padding: 3px 10px; }
 
 .tab-primary.ui-tabs { border-color: #0866c6; }
-.tab-primary.ui-tabs .ui-tabs-nav { background-color: #0866c6; border-bottom: 0; height: 42px; }
+.tab-primary.ui-tabs .ui-tabs-nav { background-color: #fff!important; border-bottom: 0; height: 42px; }
 .tab-primary.ui-tabs .ui-tabs-nav li { border-right: 1px solid rgba(255,255,255,0.3); }
-.tab-primary.ui-tabs .ui-tabs-nav li a { background: rgba(255,255,255,0.1); color: #fff; border: 0; }
+.tab-primary.ui-tabs .ui-tabs-nav li a { background: rgba(255,255,255,0.1); color: #000; border: 0; border-radius: 5px;padding-top:5px; padding-bottom:5px;background: #f5f6f8;}
 .tab-primary.ui-tabs .ui-tabs-nav li.ui-state-active { border-right: 0; }
-.tab-primary.ui-tabs .ui-tabs-nav li.ui-state-active a { background: #fff; border-bottom: 1px solid #fff; color: #333; }
+.tab-primary.ui-tabs .ui-tabs-nav li.ui-state-active a { background: #2670c9; border-bottom: 1px solid #fff; color: #fff!important; }
 
 .tab-danger.ui-tabs { border-color: #cc0000; }
 .tab-danger.ui-tabs .ui-tabs-nav { background-color: #cc0000; border-bottom: 0; height: 42px; }

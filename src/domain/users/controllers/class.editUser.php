@@ -65,7 +65,7 @@ namespace leantime\domain\controllers {
 								'hours' => ($_POST['hours']),
 								'wage' => ($_POST['wage']),
 								'clientId' => ($_POST['client']),
-								'password' = ($row['password']),
+								'password' => (password_hash($_POST['password'], PASSWORD_DEFAULT)),
 							);
 
 							$changedEmail = 0;
@@ -74,9 +74,6 @@ namespace leantime\domain\controllers {
 								$changedEmail = 1;
 							}
 
-							if ($_POST['password'] != '' && $_POST['password'] == $_POST['password2']) {
-								$values['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-							}
 
 							if ($values['user'] !== '') {
 								if ($_POST['password'] == $_POST['password2']) {

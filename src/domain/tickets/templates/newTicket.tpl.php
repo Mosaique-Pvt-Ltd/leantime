@@ -6,18 +6,19 @@ $ticket = $this->get('ticket');
 ?>
 
 <div class="pageheader">
-
-    <div class="pull-right padding-top">
-        <a href="<?php echo $_SESSION['lastPage'] ?>" class="backBtn"><i class="far fa-arrow-alt-circle-left"></i> <?=$this->__("links.go_back") ?></a>
-    </div>
-
-    <div class="pageicon"><span class="<?php echo $this->getModulePicture() ?>"></span></div>
     <div class="pagetitle">
         <h5><?php $this->e($_SESSION['currentProjectClient']." // ". $_SESSION['currentProjectName']); ?></h5>
+        <div class="row">
+            <div class="col-12">
+            <div class="back-btn" style="padding-left: 0px;">
+                <a href="<?php echo $_SESSION['lastPage'] ?>" class="backBtn btn"><i class="fas fa-chevron-left"></i></i> <?=$this->__("links.go_back") ?></a>
+            </div>
+            </div>
+        </div>
         <h1><?=$this->__("headlines.new_to_do") ?></h1>
     </div>
-</div><!--pageheader-->
-
+</div>
+<!--pageheader-->
 <div class="maincontent">
     <div class="maincontentinner">
 
@@ -32,9 +33,9 @@ $ticket = $this->get('ticket');
                     <a href="#ticketdetails"><?php echo $this->__("tabs.ticketDetails") ?></a>
                 </li>
             </ul>
-
+            <hr style="margin: 0px;">
             <div id="ticketdetails">
-                <form class="ticketModal" action="<?=BASE_URL ?>/tickets/newTicket" method="post">
+                <form class="ticketModal" action="/tickets/newTicket" method="post">
                     <?php $this->displaySubmodule('tickets-ticketDetails') ?>
                 </form>
             </div>
